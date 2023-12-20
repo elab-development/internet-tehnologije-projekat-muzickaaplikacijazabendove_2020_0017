@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('bends', function (Blueprint $table) {
-            $table->dropColumn('description');
+        Schema::table('songs', function (Blueprint $table) {
+            $table->dropColumn('rate');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('bends', function (Blueprint $table) {
-            $table->string('description');
+        Schema::table('songs', function (Blueprint $table) {
+            $table->integer('rate');
         });
     }
 };

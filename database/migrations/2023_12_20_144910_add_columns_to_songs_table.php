@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('genre');
             $table->time('duration');
             $table->year('release_date');
+            $table->integer('rate');
         });
     }
 
@@ -31,6 +32,7 @@ return new class extends Migration
             $table->dropColumn('artist');
             $table->dropColumn('duration');
             $table->dropColumn('release_date');
+            $table->dropColumn('rate');
         });
     }
 };
