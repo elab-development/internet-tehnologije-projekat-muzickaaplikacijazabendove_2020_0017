@@ -12,12 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('songs', function (Blueprint $table) {
-            $table->string('title');
-            $table->string('artist');
-            $table->string('genre');
-            $table->time('duration');
-            $table->year('release_date');
-            $table->integer('rate');
+            $table->dropColumn('rate');
         });
     }
 
@@ -27,12 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('songs', function (Blueprint $table) {
-            $table->dropColumn('title');
-            $table->dropColumn('genre');
-            $table->dropColumn('artist');
-            $table->dropColumn('duration');
-            $table->dropColumn('release_date');
-            $table->dropColumn('rate');
+            $table->integer('rate');
         });
     }
 };
