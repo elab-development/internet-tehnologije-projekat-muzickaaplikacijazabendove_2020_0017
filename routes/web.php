@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SongController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -19,5 +21,15 @@ Route::get('/',function() {
 
 });
 
+Route::get('/users', [UserController::class, 'index']);
 
-Route::get('/users',[UserController::class, 'index']);
+
+Route::get('/songs', [SongController::class, 'index']);
+
+Route::get('/songs/{id}', [songController::class, 'show']);
+
+Route::get('/bends', [BendController::class, 'index']);
+
+Route::get('/bends/{id}', [BendController::class, 'show']);
+
+
