@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('artist');
             $table->string('genre');
             $table->time('duration');
-            $table->foreignId('bend_id');
-            $table->year('release_date');
+            // $table->foreignId('bend_id');
+            $table->date('release_date');
             $table->integer('rate');
         });
     }

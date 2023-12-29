@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_bend', function (Blueprint $table) {
+        Schema::create('bend_user', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user-id')->nullable();
-            $table->unsignedBigInteger('bend-id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('bend_id')->nullable();
             $table->timestamps();
 
             //spoljni kljucevi ka tabelama users i bends
-            $table->foreignId('userid');
-            $table->foreignId('bendid');
+            // $table->foreignId('fk_user')->default(1);
+            // $table->foreignId('fk_bend')->default(1);
             
         });
     }
