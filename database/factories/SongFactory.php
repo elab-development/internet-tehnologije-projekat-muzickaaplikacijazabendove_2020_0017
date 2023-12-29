@@ -17,7 +17,11 @@ class SongFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => fake()->title(),
+            'artist' => fake()->name(),
+            'genre' => fake()->word(),
+            'duration' => fake()->randomNumber(2),
+            'release_date' => fake()->date(),
         ];
     }
 }

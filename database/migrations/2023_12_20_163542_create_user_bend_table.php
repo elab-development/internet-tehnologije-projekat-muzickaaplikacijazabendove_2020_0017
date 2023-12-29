@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('user_bend', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user-id');
-            $table->unsignedBigInteger('bend-id');
+            $table->unsignedBigInteger('user-id')->nullable();
+            $table->unsignedBigInteger('bend-id')->nullable();
             $table->timestamps();
 
             //spoljni kljucevi ka tabelama users i bends
