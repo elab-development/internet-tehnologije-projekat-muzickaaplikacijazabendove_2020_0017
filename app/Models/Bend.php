@@ -16,11 +16,11 @@ class Bend extends Model
     ];
 
     public function user() {
-        return $this->hasMany(User::class);        
+        return $this->belongsToMany(User::class);        
     }
 
     public function song() {
-        return $this->hasMany(Song::class);        
+        return $this->belongsToMany(Song::class);        
     }
 
 

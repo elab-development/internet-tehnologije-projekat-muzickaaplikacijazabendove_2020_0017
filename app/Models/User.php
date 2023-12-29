@@ -46,11 +46,11 @@ class User extends Authenticatable
 
 
     public function bend() {
-        return $this->hasMany(Bend::class);        
+        return $this->belongsToMany(Bend::class);        
     }
 
     public function song() {
-        return $this->hasMany(Song::class);
+        return $this->belongsToMany(Song::class);
     }
 
 
