@@ -22,7 +22,10 @@ class BendController extends Controller
     public function show(Bend $bend)
     {
         $bend = Bend::find($id);
-        return $bend;
+        if(is_null($bend)){
+            return response()->json('Data not found',404);
+           }
+           return response()->json($bend);
     }
 
 

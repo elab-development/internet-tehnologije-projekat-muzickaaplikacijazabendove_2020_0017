@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Song;
 use Illuminate\Http\Request;
+use App\Http\Resources\SongResource;
 
 class SongController extends Controller
 {
@@ -25,8 +26,7 @@ class SongController extends Controller
     public function show(Song $song)
     {
         //
-        $song = Song::find($id);
-        return $song;
+        return new SongResource($song);
     }
 
 }
