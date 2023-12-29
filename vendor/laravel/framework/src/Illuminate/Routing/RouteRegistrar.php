@@ -8,6 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Reflector;
 use InvalidArgumentException;
 
+
 /**
  * @method \Illuminate\Routing\Route any(string $uri, \Closure|array|string|null $action = null)
  * @method \Illuminate\Routing\Route delete(string $uri, \Closure|array|string|null $action = null)

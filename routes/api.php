@@ -8,6 +8,10 @@ use App\Http\Controllers\BendController;
 
 use App\Http\Resources\SongResource;
 
+use App\Http\Controllers\API\AuthController;
+
+use App\Models\User;
+
 
 
 /*
@@ -38,3 +42,15 @@ Route::get('/bends/{id}', [BendController::class, 'show']);
 
 
 Route::resource('songs', SongController::class);
+
+Route::user('/register', [AuthController::class, 'register']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/profile', function(Request $request) {
+        return auth()->user();
+    });
+    Route::resource('posts', PostController::class)->only(['update','store','destroy']);
+
+    // API route for logout user
+    Route::post('/logout', [AuthController::class, 'logout']);
+});

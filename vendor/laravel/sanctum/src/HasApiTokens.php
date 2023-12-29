@@ -4,6 +4,8 @@ namespace Laravel\Sanctum;
 
 use DateTimeInterface;
 use Illuminate\Support\Str;
+use App\Models\User;
+use App\Http\Controllers\API\AuthController;
 
 trait HasApiTokens
 {
@@ -43,15 +45,15 @@ trait HasApiTokens
      * @param  \DateTimeInterface|null  $expiresAt
      * @return \Laravel\Sanctum\NewAccessToken
      */
-    public function createToken(string $name, array $abilities = ['*'], DateTimeInterface $expiresAt = null)
+    public function createToken(string $name, array $abilities = ['*'])
     {
-        $plainTextToken = $this->generateTokenString();
+        
 
         $token = $this->tokens()->create([
             'name' => $name,
-            'token' => hash('sha256', $plainTextToken),
+            'token' => hash('sha256', $plainTextToken = Str::random(40)),
             'abilities' => $abilities,
-            'expires_at' => $expiresAt,
+           
         ]);
 
         return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
