@@ -43,14 +43,17 @@ Route::get('/bends/{id}', [BendController::class, 'show']);
 
 Route::resource('songs', SongController::class);
 
-Route::user('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'register']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', function(Request $request) {
         return auth()->user();
     });
-    Route::resource('posts', PostController::class)->only(['update','store','destroy']);
+    Route::resource('posts', SongController::class)->only(['update','store','destroy']);
 
-    // API route for logout user
-    Route::post('/logout', [AuthController::class, 'logout']);
 });
+
+Route::post('/logout', [AuthController::class, 'logout']);
+
+
+Route::post('/login', [AuthController::class, 'login']);
