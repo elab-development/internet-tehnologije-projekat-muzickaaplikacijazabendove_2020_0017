@@ -49,11 +49,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', function(Request $request) {
         return auth()->user();
     });
-    Route::resource('posts', SongController::class)->only(['update','store','destroy']);
+    Route::resource('songs', SongController::class)->only(['update','store','destroy']);
 
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
-
-Route::post('/logout', [AuthController::class, 'logout']);
 
 
 Route::post('/login', [AuthController::class, 'login']);
