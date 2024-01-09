@@ -19,9 +19,9 @@ class BendController extends Controller
     
     
 
-    public function show(Bend $bend)
+    public function show($bend_id)
     {
-        $bend = Bend::find($id);
+        $bend = Bend::find($bend_id);
         if(is_null($bend)){
             return response()->json('Data not found',404);
            }

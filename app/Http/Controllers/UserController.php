@@ -22,7 +22,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show($user_id)
     {
        $user = User::find($user_id);
        if(is_null($user)){
