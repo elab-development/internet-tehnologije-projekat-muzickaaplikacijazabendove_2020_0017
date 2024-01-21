@@ -30,15 +30,13 @@ Route::get('/users',[UserController::class, 'index']);
 Route::get('/users/{id}', [UserController::class, 'show']);
 
 
-
-// Route::get('/songs', [SongController::class, 'index']);
-
-// Route::get('/songs/{id}', [songController::class, 'show']);
-
-
 Route::get('/bends', [BendController::class, 'index']);
 
 Route::get('/bends/{id}', [BendController::class, 'show']);
+
+
+Route::get('/bendsPerPage', [BendController::class, 'indexPerPage']);
+
 
 
 Route::resource('songs', SongController::class);

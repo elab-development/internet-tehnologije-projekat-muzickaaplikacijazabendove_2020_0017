@@ -16,7 +16,11 @@ class BendController extends Controller
         return $bends;
     }
 
-    
+    public function indexPerPage()
+    {
+        $bends = Bend::where('id', '=', 2)->paginate($perPage = 1);
+        return $bends;
+    }
     
 
     public function show($bend_id)
