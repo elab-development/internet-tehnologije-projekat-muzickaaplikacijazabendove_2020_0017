@@ -11,7 +11,7 @@ use App\Http\Resources\SongResource;
 use App\Http\Controllers\API\AuthController;
 
 use App\Models\User;
-
+use App\Http\Controllers\ForgotPasswordController;
 
 
 /*
@@ -37,7 +37,7 @@ Route::get('/bends/{id}', [BendController::class, 'show']);
 
 Route::get('/bendsPerPage', [BendController::class, 'indexPerPage']);
 
-
+Route::post('/forgotPassword',[ForgotPasswordController::class, 'sendResetLinkEmail']);
 
 Route::resource('songs', SongController::class);
 
