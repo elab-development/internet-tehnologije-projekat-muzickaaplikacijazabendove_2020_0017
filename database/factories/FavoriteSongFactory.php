@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
+use App\Models\Song;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\FavoriteSong>
@@ -17,7 +19,8 @@ class FavoriteSongFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'song_id' => Song::factory(),
+            'user_id' => User::factory(),
         ];
     }
 }
