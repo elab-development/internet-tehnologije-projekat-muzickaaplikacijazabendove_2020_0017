@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'email_verified_at',
     ];
 
     /**
@@ -45,12 +46,20 @@ class User extends Authenticatable
 
 
 
-    public function bend() {
-        return $this->belongsToMany(Bend::class);        
+    public function comments() {
+        return $this->hasMany(Comment::class);
     }
 
-    public function song() {
-        return $this->belongsToMany(Song::class);
+    public function favoriteBands() {
+        return $this->hasMany(FavoriteBand::class);
+    }
+
+    public function bandRatings() {
+        return $this->hasMany(BandRating::class);
+    }
+
+    public function favoriteSongs() {
+        return $this->hasMany(FavoriteSong::class);
     }
 
 

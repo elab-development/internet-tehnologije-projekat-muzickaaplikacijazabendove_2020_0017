@@ -9,19 +9,12 @@ class Song extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'title',
-        'artist',
-        'genre',
-        'duration',
-        'release_date',
-    ];
-
-    public function bend() {
-        return $this->belongsTo(Bend::class);        
+    public function band() {
+        return $this->belongsTo(Band::class);
     }
 
-    public function user() {
-        return $this->belongsToMany(User::class);        
+
+    public function favoriteSong() {
+        return $this->belongsTo(FavoriteSong::class);
     }
 }
