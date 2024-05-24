@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FavoriteSong;
-use App\Http\Requests\StoreFavoriteSongRequest;
-use App\Http\Requests\UpdateFavoriteSongRequest;
+use App\Models\Band;
+use App\Http\Requests\StoreBandRequest;
+use App\Http\Requests\UpdateBandRequest;
 
-class FavoriteSongController extends Controller
+class BandController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $bands = Band::with(['songs', 'comments'])->get();
+        return response()->json($bands);
     }
 
     /**
@@ -27,7 +28,7 @@ class FavoriteSongController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFavoriteSongRequest $request)
+    public function store(StoreBandRequest $request)
     {
         //
     }
@@ -35,15 +36,16 @@ class FavoriteSongController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(FavoriteSong $favoriteSong)
+    public function show($id)
     {
-        //
+        $band = Band::with(['songs', 'comments'])->find($id);
+        return response()->json($band);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(FavoriteSong $favoriteSong)
+    public function edit(Band $band)
     {
         //
     }
@@ -51,7 +53,7 @@ class FavoriteSongController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFavoriteSongRequest $request, FavoriteSong $favoriteSong)
+    public function update(UpdateBandRequest $request, Band $band)
     {
         //
     }
@@ -59,7 +61,7 @@ class FavoriteSongController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FavoriteSong $favoriteSong)
+    public function destroy(Band $band)
     {
         //
     }

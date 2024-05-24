@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -27,9 +29,25 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCommentRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'content' => 'required|string',
+            'band_id' => 'required|integer|exists:bands,id',
+        ]);
+
+        $user = Auth::user();
+
+        $comment = new Comment();
+        $comment->content = $request->content;
+        $comment->band_id = $request->band_id;
+        $comment->user_id = $user->id;
+
+        if ($comment->save()) {
+            return response()->json(['success' => true, 'comment' => $comment], 201);
+        } else {
+            return response()->json(['success' => false], 500);
+        }
     }
 
     /**

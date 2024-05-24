@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Song;
-use Illuminate\Http\Request;
-use App\Http\Resources\SongResource;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StoreSongRequest;
+use App\Http\Requests\UpdateSongRequest;
 
 class SongController extends Controller
 {
@@ -15,11 +14,23 @@ class SongController extends Controller
     public function index()
     {
         //
-        $songs = Song::all();
-        return $songs;
     }
 
-    
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreSongRequest $request)
+    {
+        //
+    }
 
     /**
      * Display the specified resource.
@@ -27,73 +38,29 @@ class SongController extends Controller
     public function show(Song $song)
     {
         //
-        return new SongResource($song);
     }
 
-
-    public function store(Request $request)
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Song $song)
     {
-        $validator = Validator::make($request->all(),[
-            'title' => 'required|string|max:255',
-            'artist' => 'required|string|max:255',
-            'genre' => 'required|string|max:100',
-            'duration' => 'required',
-            'release_date' => 'required'
-        ]);
-
-        if($validator->fails()){
-            return response()->json($validator->errors());
-        }
-
-        $song = Song::create([
-            'title' => $request->title,
-            'artist' => $request->artist,
-            'genre' => $request->genre,
-            'duration' => $request->duration,
-            'release_date' => $request->release_date
-        ]);
-
-        return response()->json(['Song created successfully.', new SongResource($song)]);
-
+        //
     }
 
-    public function update(Request $request, Song $song)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateSongRequest $request, Song $song)
     {
-        $validator = Validator::make($request->all(),[
-            'title' => 'required|string|max:255',
-            'artist' => 'required|string|max:255',
-            'genre' => 'required|string|max:100',
-            'duration' => 'required',
-            'release_date' => 'required'
-        ]);
-
-        if($validator->fails()){
-            return response()->json($validator->errors());
-        }
-
-        $song->title = $request->title;
-        $song->artist = $request->artist;
-        $song->genre = $request->genre;
-        $song->duration = $request->duration;
-        $song->release_date = $request->release_date;
-
-        $song->save();
-
-        return response()->json(['Song updated successfully.', new SongResource($song)]);
+        //
     }
 
-
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(Song $song)
     {
-        $song->delete();
-        return response()->json('Post deleted successfully');
+        //
     }
-
-
-
-
-
-
-    
-
 }
