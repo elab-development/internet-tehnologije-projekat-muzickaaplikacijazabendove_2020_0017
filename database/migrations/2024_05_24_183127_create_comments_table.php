@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->integer('band_id');
+            $table->integer('user_id');
+            $table->text('content');
+
             $table->timestamps();
         });
     }

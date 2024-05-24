@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('favorite_songs', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
+            $table->integer('song_id');
+
             $table->timestamps();
         });
     }

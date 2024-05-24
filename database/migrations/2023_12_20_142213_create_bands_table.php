@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('song_user', function (Blueprint $table) {
+        Schema::create('bands', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('song_id');
+            $table->string('name');
+            $table->string('genre');
+            $table->text('description');
+            
             $table->timestamps();
-
-            //spoljni kljucevi ka tabelama users i songs
-            // $table->foreignId('userrr_id');
-            // $table->foreignId('songgg_id');
         });
     }
 
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('song_user');
+        Schema::dropIfExists('bands');
     }
 };
