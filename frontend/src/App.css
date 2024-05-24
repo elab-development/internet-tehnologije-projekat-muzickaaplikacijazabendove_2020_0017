@@ -1,0 +1,192 @@
+.navBar {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: black;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}
+
+.searchBox {
+  display: flex;
+}
+
+* {
+  background-color: rgb(155, 232, 221);
+}
+
+.all-bands {
+  margin: 2%;
+  display: flex;
+  
+  justify-content: space-between;
+}
+
+.band-card {
+  border-style: solid;
+  border-width: 10px;
+  border-color: rgb(53, 190, 187);
+  border-radius: 15px;
+  background-color: rgb(16, 109, 108);
+  height: 400px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-img {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.card-title {
+  color: grey;
+  font-size: x-large;
+  margin: 10px;
+  background-color: rgb(16, 109, 108);
+}
+
+.search {
+  width: 210px;
+  height: 30px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  margin-left: 2%;
+  margin-bottom: 10px;
+}
+
+.searchButton {
+  width: 50px;
+  height: 30px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-size: 16px;
+  padding: 2px;
+}
+
+.signUp {
+  height: 30px;
+  width: 70px;
+  border-radius: 15px;
+  margin-right: 10px;
+}
+
+.logIn {
+  width: 70px;
+  height: 30px;
+  border-radius: 15px;
+  margin-right: 5%;
+}
+
+.logInPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.signUpPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.loginSignup {
+  display: flex;
+}
+
+.link-class {
+  text-decoration: none;
+}
+
+input {
+  margin-bottom: 20px;
+  margin-top: 10px;
+  height: 30px;
+  width: 200px;
+  border-radius: 15px;
+  font-size: large;
+  padding-left: 10px;
+}
+
+.loginButton, .signupButton {
+  margin-top: 50px;
+  width: 70px;
+  height: 30px;
+  border-radius: 15px;
+}
+
+.signupButton {
+
+}
+
+.navBarBand {
+  display: flex;
+  align-items: center;
+  height: 100px;
+  padding-left: 40px;
+  padding-right: 20px;
+  padding-top: 10px;
+  position: relative;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.buttonsContainer {
+  display: flex;
+  align-items: center;
+  width: 60%;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.bandName {
+  width: 40%;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.addToFavoritesButton {
+  height: 30px;
+  width: 200px;
+  border-radius: 15px;
+  font-size: 15px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.bandItem {
+  width: 100%;
+  height: 700px;
+  background-size: cover;
+  background-position: center;
+}
+
+.allSongs{
+
+}
+
+.song{
+  padding: 20px;
+  margin: 15px;
+  border: 1px;
+  border-style: solid;
+  border-radius: 15px;
+}
+
+.allComments{
+
+}
+
+.comment{
+  padding: 20px;
+}
