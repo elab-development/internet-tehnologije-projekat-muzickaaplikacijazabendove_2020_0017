@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\User;
-use App\Models\Song;
-use App\Models\Bend;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,29 +13,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $users = $this->call(UserSeeder::class);
+        $bands = $this->call(BandSeeder::class);
 
+        $this->call(CommentSeeder::class);
 
-       
-    
-        $user = User::factory()->create();
-        $bend1 = Bend::factory()->create();
-        $user->bend()->attach($bend1);
+        $this->call(FavoriteBandSeeder::class);
+        
+        $this->call(BandRatingSeeder::class);
 
+        $this->call(SongSeeder::class);
 
+        $this->call(FavoriteSongSeeder::class);
 
-
-        $user2 = User::factory()->create();
-        $bend2 = Bend::factory()->create();
-        $user2->bend()->attach($bend2);
-
-
-        $song1 = Song::factory()->create([
-            'bend_id'=>$bend1->id,
-        ]);
-
-        $song1->user()->attach($user);
-
-
-      
     }
 }
