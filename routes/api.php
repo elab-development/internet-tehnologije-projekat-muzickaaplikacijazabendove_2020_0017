@@ -4,11 +4,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SongController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\BendController;
+use App\Http\Controllers\BandController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FavoriteBandController;
 
 use App\Http\Resources\SongResource;
 
-use App\Http\Controllers\API\AuthController;
+// use App\Http\Controllers\API\AuthController;
 
 use App\Models\User;
 use App\Http\Controllers\ForgotPasswordController;
@@ -27,30 +31,29 @@ use App\Http\Controllers\ForgotPasswordController;
 
 Route::get('/users',[UserController::class, 'index']);
 
-Route::get('/users/{id}', [UserController::class, 'show']);
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
-
-Route::get('/bends', [BendController::class, 'index']);
-
-Route::get('/bends/{id}', [BendController::class, 'show']);
-
-
-Route::get('/bendsPerPage', [BendController::class, 'indexPerPage']);
-
-Route::post('/forgotPassword',[ForgotPasswordController::class, 'sendResetLinkEmail']);
-
-Route::resource('songs', SongController::class);
+Route::get('/bands', [BandController::class, 'index']);
 
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/profile', function(Request $request) {
-        return auth()->user();
-    });
-    Route::resource('songs', SongController::class)->only(['update','store','destroy']);
-
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/comments', [CommentController::class, 'store']);
+    Route::get('/favoriteBands', [FavoriteBandController::class, 'index']);
+    Route::post('/favoriteBands', [FavoriteBandController::class, 'store']);
+    Route::delete('favoriteBands/{bandId}', [FavoriteBandController::class, 'destroy']);
 });
 
+Route::get('/users/{id}', [UserController::class, 'show']);
+
+Route::get('/search', [SearchController::class, 'search']);
 
 Route::post('/login', [AuthController::class, 'login']);
+
+
+//Ovo je ostalo od proslog puta
+Route::post('/forgotPassword',[ForgotPasswordController::class, 'sendResetLinkEmail']);
+
