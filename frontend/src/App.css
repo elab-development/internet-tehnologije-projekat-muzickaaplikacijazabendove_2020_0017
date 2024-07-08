@@ -14,7 +14,7 @@
 }
 
 * {
-  background-color: rgb(155, 232, 221);
+  background-color: rgb(227, 214, 254);
 }
 
 .all-bands {
@@ -189,4 +189,8 @@ input {
 
 .comment{
   padding: 20px;
+}
+
+.favoriteBandsPageBtn {
+  
 }

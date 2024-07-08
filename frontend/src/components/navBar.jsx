@@ -7,7 +7,6 @@ import axios from "axios";
 function NavBar({token, onSearch}) {
 
   //ODJAVLJIVANJE
-
   function handleLogout() {
     let config = {
       method: 'post',
@@ -56,9 +55,14 @@ function NavBar({token, onSearch}) {
       </div>
       <div className='loginSignup'>
         {token == null ? 
+        
         <Link to="/logIn"><button className='logIn'>Log in</button></Link> :
-        <button className='logIn' onClick = {handleLogout} >Log out</button>}
-
+        <div>
+          <Link to="/favBands"><button className='favoriteBandsPageBtn'>Favorite bands</button></Link>
+          <Link to="/favSongs"><button className='favoriteSongsPageBtn'>Favorite songs</button></Link>
+          <button className='logIn' onClick = {handleLogout} >Log out</button>
+        </div>}
+        
         {token == null ? 
         <Link to="/signUp"><button className='signUp'>Sign up</button></Link> : null}
         

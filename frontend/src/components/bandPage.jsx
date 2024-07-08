@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import Bands from './bands'
 import axios from 'axios'
 
-const BandPage = ({bands, favBands, removeFromFav, addToFav}) => {
+const BandPage = ({bands, favBands, removeFromFav, addToFav, favSongs, addSongToFav, removeSongFromFav, bandRatings, handleRating}) => {
     //Pronalazimo bend iz liste bendova.
     const { bandId } = useParams();
     const band = bands.find(band => band.id === parseInt(bandId)) || {};
@@ -43,7 +43,7 @@ const BandPage = ({bands, favBands, removeFromFav, addToFav}) => {
         // <div className='bandItem' style={{backgroundImage: `url(${band.image})`}}>
         <div className='bandItem' style={{backgroundImage: "https://picsum.photos/200"}}>
 
-            <NavBarBand band={band} favBands={favBands} removeFromFav={removeFromFav} addToFav={addToFav}/>
+            <NavBarBand band={band} favBands={favBands} removeFromFav={removeFromFav} addToFav={addToFav} bandRatings={bandRatings} handleRating={handleRating}/>
 
             <div>
                 <h3>Genre: {band.genre}</h3>
@@ -52,7 +52,7 @@ const BandPage = ({bands, favBands, removeFromFav, addToFav}) => {
 
             <div className='songsSection'>
                 <h2>Songs</h2>
-                <Songs songs={band.songs}/>
+                <Songs songs={band.songs} favSongs = {favSongs} addSongToFav={addSongToFav} removeSongFromFav={removeSongFromFav}/>
             </div>
 
             <div className='commentsSection'>

@@ -11,4 +11,5 @@ function Bands({bands}) {
   )
 }
 
+
 export default Bands
