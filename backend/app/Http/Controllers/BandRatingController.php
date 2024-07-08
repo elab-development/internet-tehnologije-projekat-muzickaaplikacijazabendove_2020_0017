@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\BandRating;
 use App\Http\Requests\StoreBandRatingRequest;
 use App\Http\Requests\UpdateBandRatingRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class BandRatingController extends Controller
 {
@@ -13,7 +15,9 @@ class BandRatingController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $ratings = BandRating::where('user_id', $user->id)->get();
+        return response()->json($ratings);
     }
 
     /**
@@ -27,9 +31,20 @@ class BandRatingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBandRatingRequest $request)
+    public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        // $request->validate([
+        //     'band_id' => 'required|exists:bands,id',
+        //     'rating' => 'required|integer|min=1|max=5'
+        // ]);
+
+        $rating = BandRating::updateOrCreate(
+            ['band_id' => $request->band_id, 'user_id' => $user->id],
+            ['rating' => $request->rating]
+        );
+
+        return response()->json($rating);
     }
 
     /**

@@ -9,6 +9,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteBandController;
+use App\Http\Controllers\FavoriteSongController;
+use App\Http\Controllers\BandRatingController;
 
 use App\Http\Resources\SongResource;
 
@@ -45,6 +47,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/favoriteBands', [FavoriteBandController::class, 'index']);
     Route::post('/favoriteBands', [FavoriteBandController::class, 'store']);
     Route::delete('favoriteBands/{bandId}', [FavoriteBandController::class, 'destroy']);
+    Route::get('/favoriteSongs', [FavoriteSongController::class, 'index']);
+    Route::post('/favoriteSongs', [FavoriteSongController::class, 'store']);
+    Route::delete('favoriteSongs/{songId}', [FavoriteSongController::class, 'destroy']);
+    Route::get('/bandRatings', [BandRatingController::class, 'index']);
+    Route::post('/bandRatings', [BandRatingController::class, 'store']);
 });
 
 Route::get('/users/{id}', [UserController::class, 'show']);

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\FavoriteSong;
 use App\Http\Requests\StoreFavoriteSongRequest;
 use App\Http\Requests\UpdateFavoriteSongRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class FavoriteSongController extends Controller
 {
@@ -13,7 +15,14 @@ class FavoriteSongController extends Controller
      */
     public function index()
     {
-        //
+        // Preuzimanje prijavljenog korisnika
+        $user = Auth::user();
+
+        // Preuzimanje omiljenih pesama za prijavljenog korisnika
+        $favoriteSongs= FavoriteSong::with('song')->where('user_id', $user->id)->get();
+
+        // Vraćanje podataka kao JSON odgovor
+        return response()->json($favoriteSongs);
     }
 
     /**
@@ -27,9 +36,23 @@ class FavoriteSongController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFavoriteSongRequest $request)
+    public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        // Kreiranje nove omiljene pesme
+        $favoriteSong = new FavoriteSong();
+        $favoriteSong->user_id = $user->id; // Postavljanje ID-ja prijavljenog korisnika
+        $favoriteSong->song_id = $request->song_id; // Postavljanje ID-ja benda iz zahteva
+
+        // Čuvanje omiljene pesme u bazi podataka
+        $favoriteSong->save();
+
+        // Vraćanje uspešnog odgovora kao JSON
+        return response()->json([
+            'success' => true,
+            'favoriteSong' => $favoriteSong,
+        ], 201);
     }
 
     /**
@@ -61,6 +84,15 @@ class FavoriteSongController extends Controller
      */
     public function destroy(FavoriteSong $favoriteSong)
     {
-        //
+        // Provera da li je korisnik autorizovan da obriše omiljeni bend
+        if ($favoriteSong->user_id !== Auth::id()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        // Brisanje omiljenog benda iz baze podataka
+        $favoriteSong->delete();
+
+        // Vraćanje uspešnog odgovora kao JSON
+        return response()->json(['success' => true], 200);
     }
 }

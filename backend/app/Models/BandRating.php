@@ -9,6 +9,12 @@ class BandRating extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'band_id',
+        'user_id',
+        'rating',
+    ];
+
     public function user() {
         return $this->belongsTo(User::class);
     }

@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FavoriteSong;
-use App\Http\Requests\StoreFavoriteSongRequest;
-use App\Http\Requests\UpdateFavoriteSongRequest;
+use App\Models\FavoriteBand;
+use App\Http\Requests\StoreFavoriteBandRequest;
+use App\Http\Requests\UpdateFavoriteBandRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
-class FavoriteSongController extends Controller
+class FavoriteBandController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        // Preuzimanje prijavljenog korisnika
+        $user = Auth::user();
+
+        // Preuzimanje omiljenih bendova za prijavljenog korisnika
+        $favoriteBands = FavoriteBand::with('band')->where('user_id', $user->id)->get();
+
+        // Vraćanje podataka kao JSON odgovor
+        return response()->json($favoriteBands);
     }
 
     /**
@@ -27,15 +36,30 @@ class FavoriteSongController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFavoriteSongRequest $request)
+    public function store(Request $request)
     {
-        //
+        // Preuzimanje prijavljenog korisnika
+        $user = Auth::user();
+
+        // Kreiranje novog omiljenog benda
+        $favoriteBand = new FavoriteBand();
+        $favoriteBand->user_id = $user->id; // Postavljanje ID-ja prijavljenog korisnika
+        $favoriteBand->band_id = $request->band_id; // Postavljanje ID-ja benda iz zahteva
+
+        // Čuvanje omiljenog benda u bazi podataka
+        $favoriteBand->save();
+
+        // Vraćanje uspešnog odgovora kao JSON
+        return response()->json([
+            'success' => true,
+            'favoriteBand' => $favoriteBand,
+        ], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(FavoriteSong $favoriteSong)
+    public function show(FavoriteBand $favoriteBand)
     {
         //
     }
@@ -43,7 +67,7 @@ class FavoriteSongController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(FavoriteSong $favoriteSong)
+    public function edit(FavoriteBand $favoriteBand)
     {
         //
     }
@@ -51,7 +75,7 @@ class FavoriteSongController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFavoriteSongRequest $request, FavoriteSong $favoriteSong)
+    public function update(UpdateFavoriteBandRequest $request, FavoriteBand $favoriteBand)
     {
         //
     }
@@ -59,8 +83,25 @@ class FavoriteSongController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FavoriteSong $favoriteSong)
+    public function destroy($id)
     {
-        //
+        // Preuzimanje prijavljenog korisnika
+        $user = Auth::user();
+    
+        // Pronalaženje omiljenog benda za datog korisnika i sa datim band_id
+        $favoriteBand = FavoriteBand::where('user_id', $user->id)
+                                    ->where('band_id', $id)
+                                    ->first();
+    
+        // Provera da li je omiljeni bend pronađen
+        if (!$favoriteBand) {
+            return response()->json(['error' => 'Favorite band not found'], 404);
+        }
+    
+        // Brisanje omiljenog benda iz baze podataka
+        $favoriteBand->delete();
+    
+        // Vraćanje uspešnog odgovora kao JSON
+        return response()->json(['success' => true, 'favBandId' => $id], 200);
     }
 }
