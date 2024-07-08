@@ -82,17 +82,20 @@ class FavoriteSongController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FavoriteSong $favoriteSong)
+    public function destroy($id)
     {
-        // Provera da li je korisnik autorizovan da obriše omiljeni bend
-        if ($favoriteSong->user_id !== Auth::id()) {
-            return response()->json(['error' => 'Unauthorized'], 403);
+        $user = Auth::user();
+        $favoriteSong = FavoriteSong::where('user_id', $user->id)
+                                    ->where('song_id', $id)
+                                    ->first();
+    
+        
+        if (!$favoriteSong) {
+            return response()->json(['error' => 'Favorite song not found'], 404);
         }
-
-        // Brisanje omiljenog benda iz baze podataka
+    
         $favoriteSong->delete();
-
-        // Vraćanje uspešnog odgovora kao JSON
-        return response()->json(['success' => true], 200);
+    
+        return response()->json(['success' => true, 'favSongId' => $id], 200);
     }
 }

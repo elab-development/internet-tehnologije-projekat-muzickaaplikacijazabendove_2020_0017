@@ -36,11 +36,16 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
+    'web' => [
+        'driver' => 'session',
+        'provider' => 'users', // Ovde treba da bude vaš user provider, na primer 'users'
     ],
+
+    'admin' => [
+        'driver' => 'session',
+        'provider' => 'admins', // Ovde treba da bude vaš admin provider, ako postoji
+    ],
+],
 
     /*
     |--------------------------------------------------------------------------
@@ -59,17 +64,18 @@ return [
     |
     */
 
-    'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+   'providers' => [
+    'users' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\User::class,
     ],
+
+    'admins' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Admin::class,
+    ],
+],
+
 
     /*
     |--------------------------------------------------------------------------

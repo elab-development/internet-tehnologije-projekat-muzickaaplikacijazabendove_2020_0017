@@ -11,11 +11,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteBandController;
 use App\Http\Controllers\FavoriteSongController;
 use App\Http\Controllers\BandRatingController;
-
 use App\Http\Resources\SongResource;
-
-// use App\Http\Controllers\API\AuthController;
-
 use App\Models\User;
 use App\Http\Controllers\ForgotPasswordController;
 
@@ -41,8 +37,11 @@ Route::get('/bands', [BandController::class, 'index']);
 
 Route::post('/register', [AuthController::class, 'register']);
 
+Route::post('/adminRegister', [AuthController::class, 'adminRegister']);
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/adminLogout', [AuthController::class, 'adminLogout']);
     Route::post('/comments', [CommentController::class, 'store']);
     Route::get('/favoriteBands', [FavoriteBandController::class, 'index']);
     Route::post('/favoriteBands', [FavoriteBandController::class, 'store']);
@@ -59,6 +58,9 @@ Route::get('/users/{id}', [UserController::class, 'show']);
 Route::get('/search', [SearchController::class, 'search']);
 
 Route::post('/login', [AuthController::class, 'login']);
+
+// Ruta za logovanje administratora
+Route::post('/adminLogin', [AuthController::class, 'adminLogin']);
 
 
 //Ovo je ostalo od proslog puta
