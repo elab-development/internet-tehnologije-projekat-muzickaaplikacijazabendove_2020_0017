@@ -29,8 +29,11 @@ const OneSong = ({song, favSongs, addSongToFav, removeSongFromFav}) => {
 
   return (
     <div className='song'>
-      {song.title}
-      {song.duration}
+      <div className="songDetails">
+        <p>{song.title}</p>
+        <p>{song.duration}</p>
+      </div>
+      
       <div className='buttonsContainer'>
         <button className='addToFavoritesButton' onClick={handleFavoriteSong} value={btnFavorite}>{btnFavorite}</button>
       </div>

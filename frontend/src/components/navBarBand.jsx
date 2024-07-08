@@ -47,37 +47,40 @@ const NavBarBand = ({band, favBands, removeFromFav, addToFav, bandRatings, handl
       <h1 style={{backgroundColor: 'rgba(0, 0, 0, 0)'}}>{band.name}</h1>
       </div>
 
-      <div className='ratingContainer'>
-      {[...Array(5)].map((star, index) => {
-        const ratingValue = index + 1;
-        return (
-          <label key={index}>
-            <input
-              type="radio"
-              name="rating"
-              value={ratingValue}
-              onClick={() => handleClick(ratingValue)}
-              style={{ display: 'none' }}
-            />
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill={ratingValue <= (hover || rating) ? "yellow" : "gray"}
-              width="24px"
-              height="24px"
-              onMouseEnter={() => setHover(ratingValue)}
-              onMouseLeave={() => setHover(0)}
-              style={{ cursor: 'pointer' }}
-            >
-              <path d="M12 17.27L18.18 21 16.54 14.39 22 10.49 15.27 10.13 12 4 8.73 10.13 2 10.49 7.46 14.39 5.82 21 12 17.27z" />
-            </svg>
-          </label>
-        );
-      })}
-    </div>
-
-    <div className='currentRating'>
+      <div className='ratingsContainer'>
+        <div className='ratingContainer'>
+        {[...Array(5)].map((star, index) => {
+          const ratingValue = index + 1;
+          return (
+            <label key={index}>
+              <input
+                type="radio"
+                name="rating"
+                value={ratingValue}
+                onClick={() => handleClick(ratingValue)}
+                style={{ display: 'none' }}
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill={ratingValue <= (hover || rating) ? "yellow" : "gray"}
+                width="24px"
+                height="24px"
+                onMouseEnter={() => setHover(ratingValue)}
+                onMouseLeave={() => setHover(0)}
+                style={{ cursor: 'pointer' }}
+              >
+                <path d="M12 17.27L18.18 21 16.54 14.39 22 10.49 15.27 10.13 12 4 8.73 10.13 2 10.49 7.46 14.39 5.82 21 12 17.27z" />
+              </svg>
+            </label>
+          );
+        })}
+      </div>
+      {rating > 0 && (
+      <div className='currentRating'>
         <p>Current Rating: {rating}</p>
+      </div>
+    )}
       </div>
 
       <div className='buttonsContainer'>

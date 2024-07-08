@@ -1,196 +1,361 @@
-.navBar {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: black;
+/* Stil za navigacionu traku */
 
+body {
+  background-color: #a2a2a2;
+}
+
+.navBar {
+  background-color: #333;
+  color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 50px;
+  padding: 10px 20px;
 }
 
+/* Stil za polje za pretragu */
 .searchBox {
   display: flex;
-}
-
-* {
-  background-color: rgb(227, 214, 254);
-}
-
-.all-bands {
-  margin: 2%;
-  display: flex;
-  
-  justify-content: space-between;
-}
-
-.band-card {
-  border-style: solid;
-  border-width: 10px;
-  border-color: rgb(53, 190, 187);
-  border-radius: 15px;
-  background-color: rgb(16, 109, 108);
-  height: 400px;
   align-items: center;
-  display: flex;
-  flex-direction: column;
-}
-
-.card-img {
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-}
-
-.card-title {
-  color: grey;
-  font-size: x-large;
-  margin: 10px;
-  background-color: rgb(16, 109, 108);
 }
 
 .search {
-  width: 210px;
-  height: 30px;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-  margin-left: 2%;
-  margin-bottom: 10px;
-}
-
-.searchButton {
-  width: 50px;
-  height: 30px;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  padding: 8px;
   font-size: 16px;
-  padding: 2px;
-}
-
-.signUp {
-  height: 30px;
-  width: 70px;
-  border-radius: 15px;
+  border: none;
+  border-radius: 4px;
   margin-right: 10px;
 }
 
-.logIn {
-  width: 70px;
-  height: 30px;
-  border-radius: 15px;
-  margin-right: 5%;
+.searchButton {
+  background-color: #137aae;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.logInPage {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  flex-direction: column;
+.searchButton:hover {
+  background-color: #137aae;
 }
 
-.signUpPage {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  flex-direction: column;
-}
-
+/* Stil za dugmad za prijavljivanje i odjavljivanje */
 .loginSignup {
   display: flex;
+  align-items: center;
 }
 
-.link-class {
+.logIn, .favoriteBandsPageBtn, .favoriteSongsPageBtn, .signUp {
+  background-color: #555;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
   text-decoration: none;
 }
 
-input {
-  margin-bottom: 20px;
+.logIn:hover, .favoriteBandsPageBtn:hover, .favoriteSongsPageBtn:hover, .signUp:hover {
+  background-color: #137aae;
+}
+
+.logOutBtn {
+  background-color: #f44336;
+}
+
+.logOutBtn:hover {
+  background-color: #e53935;
+}
+
+
+/* Stilizovanje bendova */
+
+.all-bands {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Flexibilni raspored */
+  gap: 20px; /* Prostor između kartica bendova */
+}
+
+.band-card {
+  text-align: center;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.band-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.card-title {
   margin-top: 10px;
-  height: 30px;
-  width: 200px;
-  border-radius: 15px;
-  font-size: large;
-  padding-left: 10px;
+  font-size: 18px;
+  color: #333;
 }
 
-.loginButton, .signupButton {
-  margin-top: 50px;
-  width: 70px;
-  height: 30px;
-  border-radius: 15px;
+.band-link {
+  text-decoration: none;
+  color: inherit;
 }
 
-.signupButton {
 
+
+/* Stilizovanje logIn stranice */
+
+.logInPage {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
 }
+
+.logInPage input {
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.logInPage button {
+  padding: 10px 20px;
+  background-color: #137aae;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logInPage button:hover {
+  background-color: #006ea5;
+}
+
+
+/* Stilizovanje signUp stranice */
+
+.signUpPage {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.signUpPage input {
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.signUpPage button {
+  padding: 10px 20px;
+  background-color: #28a7a3; /* Green color for signup button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.signUpPage button:hover {
+  background-color: #109490; /* Darker green color on hover */
+}
+
+
+/* Stilizovanje navigacionog bara za bend */
 
 .navBarBand {
   display: flex;
   align-items: center;
-  height: 100px;
-  padding-left: 40px;
-  padding-right: 20px;
-  padding-top: 10px;
-  position: relative;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0);
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.bandName h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.ratingsContainer {
+  display: flex;
+  align-items: center;
+}
+
+.ratingContainer {
+  display: flex;
+  align-items: center;
+}
+
+.ratingContainer svg {
+  margin: 0 2px;
+}
+
+.currentRating {
+  font-size: 14px;
+  color: #666;
+  margin-left: 10px; /* Adjust spacing between rating and buttons */
 }
 
 .buttonsContainer {
-  display: flex;
-  align-items: center;
-  width: 60%;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0);
-}
-
-.bandName {
-  width: 40%;
-  background-color: rgba(0, 0, 0, 0);
+  margin-left: auto;
 }
 
 .addToFavoritesButton {
-  height: 30px;
-  width: 200px;
-  border-radius: 15px;
-  font-size: 15px;
-  background-color: rgba(0, 0, 0, 0);
+  padding: 10px 20px;
+  background-color: #137aae; /* Blue color for button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
+
+.addToFavoritesButton:hover {
+  background-color: #137aae; /* Darker blue color on hover */
+}
+
+
+/* Stilizovanje stranice benda */
 
 .bandItem {
-  width: 100%;
-  height: 700px;
   background-size: cover;
   background-position: center;
-}
-
-.allSongs{
-
-}
-
-.song{
+  background-repeat: no-repeat;
   padding: 20px;
-  margin: 15px;
-  border: 1px;
-  border-style: solid;
-  border-radius: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.allComments{
-
+.bandInfo {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 20px;
 }
 
-.comment{
-  padding: 20px;
+.commentsSection {
+  margin-top: 20px;
+}
+.allComments {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+.comment {
+  margin-bottom: 10px;
+}
+.comment p {
+  margin: 0;
+}
+.commentInputContainer {
+  margin-top: 10px;
 }
 
-.favoriteBandsPageBtn {
-  
+
+.songsSection {
+  margin-top: 20px;
 }
+.allSongs {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+.song {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.songDetails {
+  flex: 1; /* Ostavlja prostor za dugme za dodavanje u omiljene */
+}
+
+.songDetails p {
+  margin: 0;
+  font-size: 18px;
+}
+
+.buttonsContainer {
+  margin-left: 10px;
+}
+
+.addToFavoritesButton {
+  padding: 8px 16px;
+  background-color: #007bff; /* Blue color for button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.addToFavoritesButton:hover {
+  background-color: #0056b3; /* Darker blue color on hover */
+}
+
+
+
+
+.songsSection, .commentsSection {
+  margin-top: 20px;
+}
+
+.songsSection h2, .commentsSection h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.commentInput {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.commentInput:focus {
+  outline: none;
+  border-color: #0d5275; /* Blue focus color */
+}
+
+.commentsSection button {
+  padding: 10px 20px;
+  background-color: #137aae; /* Blue color for button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.commentsSection button:hover {
+  background-color: #0d5275; /* Darker blue color on hover */
+}
+
+
+
+
+
+

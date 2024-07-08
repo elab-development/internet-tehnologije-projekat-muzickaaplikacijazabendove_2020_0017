@@ -45,7 +45,7 @@ const BandPage = ({bands, favBands, removeFromFav, addToFav, favSongs, addSongTo
 
             <NavBarBand band={band} favBands={favBands} removeFromFav={removeFromFav} addToFav={addToFav} bandRatings={bandRatings} handleRating={handleRating}/>
 
-            <div>
+            <div className='bandInfo'>
                 <h3>Genre: {band.genre}</h3>
                 <p>Description: {band.description}</p>
             </div>
@@ -58,12 +58,14 @@ const BandPage = ({bands, favBands, removeFromFav, addToFav, favSongs, addSongTo
             <div className='commentsSection'>
                 <h2>Comments</h2>
                 <Comments comments={comments}/>
-                <input type="text" 
-                    placeholder='Add comment'
-                    className='commentInput'
-                    onInput={(e) => setComment(e.target.value)}
-                    value={comment}
-                />
+                <div className="commentInputContainer">
+                    <input type="text" 
+                        placeholder='Add comment'
+                        className='commentInput'
+                        onInput={(e) => setComment(e.target.value)}
+                        value={comment}
+                    />
+                </div>
                 <button onClick={handleComment}>Comment</button>
             </div>
 

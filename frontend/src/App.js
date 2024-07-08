@@ -242,6 +242,7 @@ function App() {
 
       <Route path='/favSongs' element={<FavoriteSongsPage allFavSongs = {favSongs} removeSongFromFav = {removeSongFromFav}/>}></Route>
 
+      {/* <Route path="/admin" element={<AdminLoginPage />} /> */}
 
     </Routes>
     </BrowserRouter>
