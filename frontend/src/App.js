@@ -11,6 +11,7 @@ import FavoriteSongsPage from './components/favoriteSongsPage';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
+import AdminLogInPage from './components/adminLogInPage';
 
 function App() {
 
@@ -52,7 +53,7 @@ function App() {
           'Authorization': `Bearer ${token}`
         }
     }).then((res) => {
-        console.log("Omiljene pesme: " + res.data);
+        console.log(res.data);
         setFavSongs(res.data);
       })
     }
@@ -156,7 +157,7 @@ function App() {
         const index = favSongs.findIndex(favSong => favSong.id === res.data.favSongId);
         const newFavSongs = [...favSongs];
         newFavSongs.splice(index, 1);
-        setFavBands(newFavSongs);
+        setFavSongs(newFavSongs);
       } else {
         console.log('Error removing favorite song.');
       }
@@ -231,7 +232,7 @@ function App() {
 
       <Route path='/bands'> 
         <Route path=':bandId' element={<BandPage bands={bands} favBands = {favBands} removeFromFav={removeFromFav} addToFav={addToFav}
-          favSongs = {favSongs} addSongToFav = {addSongToFav} removeSongFromFav = {removeSongFromFav} bandRatings = {bandRatings} handleRating={handleRating}/>}></Route>
+          favSongs = {favSongs} addSongToFav = {addSongToFav} removeSongFromFav = {removeSongFromFav} bandRatings = {bandRatings} handleRating={handleRating} token={token}/>}></Route>
       </Route>
 
       <Route path='/logIn' element={<LogInPage addToken={addToken}/>}></Route>
@@ -242,7 +243,7 @@ function App() {
 
       <Route path='/favSongs' element={<FavoriteSongsPage allFavSongs = {favSongs} removeSongFromFav = {removeSongFromFav}/>}></Route>
 
-      {/* <Route path="/admin" element={<AdminLoginPage />} /> */}
+      <Route path="/admin" element={<AdminLogInPage addToken={addToken}/>} />
 
     </Routes>
     </BrowserRouter>

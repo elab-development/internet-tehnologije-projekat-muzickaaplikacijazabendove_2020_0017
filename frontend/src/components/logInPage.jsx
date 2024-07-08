@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const LogInPage = ({addToken}) => {
 
@@ -38,7 +38,9 @@ const LogInPage = ({addToken}) => {
       
     } catch (error) {
       // Obrada greške
-      console.error('Greška prilikom logovanja:', error);
+      if (error.response.status === 401) {
+        alert('Pogrešan email ili lozinka. Pokušajte ponovo.');
+      } 
     }
 
 
@@ -46,20 +48,26 @@ const LogInPage = ({addToken}) => {
 
 
   return (
-    <div className='logInPage'>
+    <div className='login'>
+      <div className='logInPage'>
 
-      <input type='email' 
-      placeholder='Email' 
-      name="email" 
-      onInput={handleChange}></input>
+        <input type='email' 
+        placeholder='Email' 
+        name="email" 
+        onInput={handleChange}></input>
+        
+        <input type='password' 
+        placeholder='Password' 
+        name="password" 
+        onInput={handleChange}></input>
+
+        <button className='loginButton' onClick={handleSubmit}>Log In</button>
+      </div>
+
+      <div className='linkContainer'>
+        <Link to="/admin"><a className='link-to-admin'>Login as administrator?</a></Link>
+      </div>
       
-      <input type='password' 
-      placeholder='Password' 
-      name="password" 
-      onInput={handleChange}></input>
-
-      <button className='loginButton' onClick={handleSubmit}>Log In</button>
-
     </div>
   )
 }

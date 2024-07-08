@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import Bands from './bands'
 import axios from 'axios'
 
-const BandPage = ({bands, favBands, removeFromFav, addToFav, favSongs, addSongToFav, removeSongFromFav, bandRatings, handleRating}) => {
+const BandPage = ({bands, favBands, removeFromFav, addToFav, favSongs, addSongToFav, removeSongFromFav, bandRatings, handleRating, token}) => {
     //Pronalazimo bend iz liste bendova.
     const { bandId } = useParams();
     const band = bands.find(band => band.id === parseInt(bandId)) || {};
@@ -43,7 +43,7 @@ const BandPage = ({bands, favBands, removeFromFav, addToFav, favSongs, addSongTo
         // <div className='bandItem' style={{backgroundImage: `url(${band.image})`}}>
         <div className='bandItem' style={{backgroundImage: "https://picsum.photos/200"}}>
 
-            <NavBarBand band={band} favBands={favBands} removeFromFav={removeFromFav} addToFav={addToFav} bandRatings={bandRatings} handleRating={handleRating}/>
+            <NavBarBand band={band} favBands={favBands} removeFromFav={removeFromFav} addToFav={addToFav} bandRatings={bandRatings} handleRating={handleRating} token={token}/>
 
             <div className='bandInfo'>
                 <h3>Genre: {band.genre}</h3>
@@ -52,22 +52,24 @@ const BandPage = ({bands, favBands, removeFromFav, addToFav, favSongs, addSongTo
 
             <div className='songsSection'>
                 <h2>Songs</h2>
-                <Songs songs={band.songs} favSongs = {favSongs} addSongToFav={addSongToFav} removeSongFromFav={removeSongFromFav}/>
+                <Songs songs={band.songs} favSongs = {favSongs} addSongToFav={addSongToFav} removeSongFromFav={removeSongFromFav} token={token}/>
             </div>
 
-            <div className='commentsSection'>
-                <h2>Comments</h2>
-                <Comments comments={comments}/>
-                <div className="commentInputContainer">
-                    <input type="text" 
-                        placeholder='Add comment'
-                        className='commentInput'
-                        onInput={(e) => setComment(e.target.value)}
-                        value={comment}
-                    />
-                </div>
-                <button onClick={handleComment}>Comment</button>
-            </div>
+            {token != null ? 
+                (<div className='commentsSection'>
+                    <h2>Comments</h2>
+                    <Comments comments={comments}/>
+                    <div className="commentInputContainer">
+                        <input type="text" 
+                            placeholder='Add comment'
+                            className='commentInput'
+                            onInput={(e) => setComment(e.target.value)}
+                            value={comment}
+                        />
+                    </div>
+                    <button onClick={handleComment}>Comment</button>
+                </div>) : null
+            }
 
             
         </div>

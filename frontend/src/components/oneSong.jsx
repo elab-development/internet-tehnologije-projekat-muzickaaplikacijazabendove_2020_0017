@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react'
 
-const OneSong = ({song, favSongs, addSongToFav, removeSongFromFav}) => {
+const OneSong = ({song, favSongs, addSongToFav, removeSongFromFav, token}) => {
 
   const [btnFavorite, setBtnFavorites] = useState("");
   const [isFav, setIsFav] = useState(null);
 
   useEffect(() => {
     let songId = Number(song.id)
-    console.log(favSongs)
-    console.log(songId)
-    if (favSongs.length > 0 && songId) {
-      setIsFav(favSongs.some(favSong => Number(favSong.song_id) === songId));
+    if(favSongs != null) {
+      if (favSongs.length > 0 && songId) {
+        setIsFav(favSongs.some(favSong => Number(favSong.song_id) === songId));
+      }
     }
-  }, [song, isFav]);
+  }, [song]);
 
   useEffect(() => {
     setBtnFavorites(isFav ? "Remove from favorites" : "Add to favorites");
@@ -34,9 +34,12 @@ const OneSong = ({song, favSongs, addSongToFav, removeSongFromFav}) => {
         <p>{song.duration}</p>
       </div>
       
-      <div className='buttonsContainer'>
+      {token != null ? 
+      (<div className='buttonsContainer'>
         <button className='addToFavoritesButton' onClick={handleFavoriteSong} value={btnFavorite}>{btnFavorite}</button>
-      </div>
+      </div>) : null
+      }
+      
       </div>
   )
 

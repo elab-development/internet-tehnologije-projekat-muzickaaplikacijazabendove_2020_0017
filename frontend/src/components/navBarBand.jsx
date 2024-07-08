@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 
-const NavBarBand = ({band, favBands, removeFromFav, addToFav, bandRatings, handleRating}) => {
+const NavBarBand = ({band, favBands, removeFromFav, addToFav, bandRatings, handleRating, token}) => {
 
   const [btnFavorite, setBtnFavorites] = useState("");
   const [isFav, setIsFav] = useState(null);
@@ -47,6 +47,7 @@ const NavBarBand = ({band, favBands, removeFromFav, addToFav, bandRatings, handl
       <h1 style={{backgroundColor: 'rgba(0, 0, 0, 0)'}}>{band.name}</h1>
       </div>
 
+      {token && (
       <div className='ratingsContainer'>
         <div className='ratingContainer'>
         {[...Array(5)].map((star, index) => {
@@ -75,19 +76,27 @@ const NavBarBand = ({band, favBands, removeFromFav, addToFav, bandRatings, handl
             </label>
           );
         })}
-      </div>
-      {rating > 0 && (
-      <div className='currentRating'>
-        <p>Current Rating: {rating}</p>
-      </div>
-    )}
-      </div>
-
-      <div className='buttonsContainer'>
-        <button className='addToFavoritesButton' onClick={handleFavoriteBand} value={btnFavorite}>{btnFavorite}</button>
-      </div>
-        
         </div>
+
+        
+        {rating > 0 && (
+          <div className='currentRating'>
+            <p>Current Rating: {rating}</p>
+          </div>
+        )}
+      
+
+      </div>
+    
+      )}
+
+        {token && (
+          <div className='buttonsContainer'>
+            <button className='addToFavoritesButton' onClick={handleFavoriteBand} value={btnFavorite}>{btnFavorite}</button>
+          </div>
+        )}
+        
+    </div>
   )
 }
 
