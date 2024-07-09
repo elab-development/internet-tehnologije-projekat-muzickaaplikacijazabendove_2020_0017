@@ -34,6 +34,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/bands', [BandController::class, 'index']);
+Route::get('/songs', [SongController::class, 'index']);
 
 Route::post('/register', [AuthController::class, 'register']);
 
