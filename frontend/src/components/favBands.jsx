@@ -7,8 +7,9 @@ const FavBands = ({ favBands, removeFromFav }) => {
   }
   return (
     <div className='all-fav-bands'>
-      {favBands.map((band) => (
-        <OneFavBand band={band} removeFromFav = {removeFromFav} key={band.id} />
+      <h1>Favorite bands</h1>
+      {favBands.map((favBand) => (
+        <OneFavBand favBand={favBand} removeFromFav = {removeFromFav} key={favBand.id} />
       ))}
     </div>
   );
