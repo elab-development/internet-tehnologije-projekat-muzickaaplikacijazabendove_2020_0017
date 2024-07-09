@@ -9,6 +9,12 @@ class Band extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'genre',
+        'description',
+    ];
+
     public function comments() {
         return $this->hasMany(Comment::class);
     }

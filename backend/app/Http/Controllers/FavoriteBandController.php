@@ -38,23 +38,51 @@ class FavoriteBandController extends Controller
      */
     public function store(Request $request)
     {
+        // Validacija zahteva
+        $request->validate([
+            'band_id' => 'required|exists:bands,id', // Proverava da li band_id postoji u tabeli bands
+        ]);
+
         // Preuzimanje prijavljenog korisnika
         $user = Auth::user();
 
-        // Kreiranje novog omiljenog benda
-        $favoriteBand = new FavoriteBand();
-        $favoriteBand->user_id = $user->id; // Postavljanje ID-ja prijavljenog korisnika
-        $favoriteBand->band_id = $request->band_id; // Postavljanje ID-ja benda iz zahteva
+        // Provera da li je bend već dodat u omiljene
+        $existingFavorite = FavoriteBand::where('user_id', $user->id)
+                                        ->where('band_id', $request->band_id)
+                                        ->first();
 
-        // Čuvanje omiljenog benda u bazi podataka
-        $favoriteBand->save();
+        if ($existingFavorite) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Band is already in favorites',
+            ], 409); // 409 Conflict
+        }
 
-        // Vraćanje uspešnog odgovora kao JSON
-        return response()->json([
-            'success' => true,
-            'favoriteBand' => $favoriteBand,
-        ], 201);
+        try {
+            // Kreiranje novog omiljenog benda
+            $favoriteBand = new FavoriteBand();
+            $favoriteBand->user_id = $user->id; // Postavljanje ID-ja prijavljenog korisnika
+            $favoriteBand->band_id = (int) $request->band_id; // Konvertovanje band_id u integer
+
+            // Čuvanje omiljenog benda u bazi podataka
+            $favoriteBand->save();
+
+            // Vraćanje uspešnog odgovora kao JSON
+            return response()->json([
+                'success' => true,
+                'favoriteBand' => $favoriteBand,
+            ], 201);
+        } catch (\Exception $e) {
+            // Logovanje greške
+            \Log::error('Error storing favorite band: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'There was an error adding the favorite band',
+            ], 500); // 500 Internal Server Error
+        }
     }
+
 
     /**
      * Display the specified resource.
@@ -102,6 +130,7 @@ class FavoriteBandController extends Controller
         $favoriteBand->delete();
     
         // Vraćanje uspešnog odgovora kao JSON
-        return response()->json(['success' => true, 'favBandId' => $id], 200);
+        return response()->json(['success' => true, 'favBandId' => $favoriteBand->id], 200);
     }
+
 }

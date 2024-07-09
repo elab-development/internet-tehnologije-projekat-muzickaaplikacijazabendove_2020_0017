@@ -34,7 +34,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/bands', [BandController::class, 'index']);
+Route::get('/bands/{id}', [BandController::class, 'show']);
 Route::get('/songs', [SongController::class, 'index']);
+Route::get('/songs/{id}', [SongController::class, 'show']);
 
 Route::post('/register', [AuthController::class, 'register']);
 
@@ -44,14 +46,20 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/adminLogout', [AuthController::class, 'adminLogout']);
     Route::post('/comments', [CommentController::class, 'store']);
+    
     Route::get('/favoriteBands', [FavoriteBandController::class, 'index']);
     Route::post('/favoriteBands', [FavoriteBandController::class, 'store']);
     Route::delete('favoriteBands/{bandId}', [FavoriteBandController::class, 'destroy']);
+    
     Route::get('/favoriteSongs', [FavoriteSongController::class, 'index']);
     Route::post('/favoriteSongs', [FavoriteSongController::class, 'store']);
     Route::delete('favoriteSongs/{songId}', [FavoriteSongController::class, 'destroy']);
+
     Route::get('/bandRatings', [BandRatingController::class, 'index']);
     Route::post('/bandRatings', [BandRatingController::class, 'store']);
+
+    //Rute za admina
+    Route::post('/bands', [BandController::class, 'store']);
 });
 
 Route::get('/users/{id}', [UserController::class, 'show']);

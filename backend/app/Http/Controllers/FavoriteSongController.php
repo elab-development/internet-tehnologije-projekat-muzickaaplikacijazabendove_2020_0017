@@ -38,21 +38,44 @@ class FavoriteSongController extends Controller
      */
     public function store(Request $request)
     {
+        // Validacija zahteva
+        $request->validate([
+            'song_id' => 'required|exists:songs,id', 
+        ]);
+
+        // Preuzimanje prijavljenog korisnika
         $user = Auth::user();
 
-        // Kreiranje nove omiljene pesme
-        $favoriteSong = new FavoriteSong();
-        $favoriteSong->user_id = $user->id; // Postavljanje ID-ja prijavljenog korisnika
-        $favoriteSong->song_id = $request->song_id; // Postavljanje ID-ja benda iz zahteva
+        $existingFavorite = FavoriteSong::where('user_id', $user->id)
+                                        ->where('song_id', $request->song_id)
+                                        ->first();
 
-        // Čuvanje omiljene pesme u bazi podataka
-        $favoriteSong->save();
+        if ($existingFavorite) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Song is already in favorites',
+            ], 409); // 409 Conflict
+        }
 
-        // Vraćanje uspešnog odgovora kao JSON
-        return response()->json([
-            'success' => true,
-            'favoriteSong' => $favoriteSong,
-        ], 201);
+        try {
+            $favoriteSong = new FavoriteSong();
+            $favoriteSong->user_id = $user->id; 
+            $favoriteSong->song_id = (int) $request->song_id;
+
+            $favoriteSong->save();
+
+            return response()->json([
+                'success' => true,
+                'favoriteSong' => $favoriteSong,
+            ], 201);
+        } catch (\Exception $e) {
+            \Log::error('Error storing favorite song: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'There was an error adding the favorite song',
+            ], 500);
+        }
     }
 
     /**
@@ -85,6 +108,7 @@ class FavoriteSongController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
+        
         $favoriteSong = FavoriteSong::where('user_id', $user->id)
                                     ->where('song_id', $id)
                                     ->first();
@@ -96,6 +120,7 @@ class FavoriteSongController extends Controller
     
         $favoriteSong->delete();
     
-        return response()->json(['success' => true, 'favSongId' => $id], 200);
+        return response()->json(['success' => true, 'favSongId' => $favoriteSong->id], 200);
     }
+
 }

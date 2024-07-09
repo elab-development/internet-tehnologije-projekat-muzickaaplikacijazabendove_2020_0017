@@ -36,9 +36,15 @@ class SongController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Song $song)
+    public function show($id)
     {
-        //
+        $song = Song::find($id);
+
+        if (is_null($song)) {
+            return response()->json(['error' => 'Song not found'], 404);
+        }
+
+        return response()->json($song, 200);
     }
 
     /**
