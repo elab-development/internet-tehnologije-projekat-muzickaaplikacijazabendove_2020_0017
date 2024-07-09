@@ -65,7 +65,7 @@ const LogInPage = ({addToken}) => {
       </div>
 
       <div className='linkContainer'>
-        <Link to="/admin"><a className='link-to-admin'>Login as administrator?</a></Link>
+        <Link to="/adminLogin"><a className='link-to-admin'>Login as administrator?</a></Link>
       </div>
       
     </div>

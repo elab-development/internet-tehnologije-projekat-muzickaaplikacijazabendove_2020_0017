@@ -12,6 +12,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import AdminLogInPage from './components/adminLogInPage';
+import AdminPage from './components/adminPage';
 
 function App() {
 
@@ -243,7 +244,9 @@ function App() {
 
       <Route path='/favSongs' element={<FavoriteSongsPage allFavSongs = {favSongs} removeSongFromFav = {removeSongFromFav}/>}></Route>
 
-      <Route path="/admin" element={<AdminLogInPage addToken={addToken}/>} />
+      <Route path="/adminLogin" element={<AdminLogInPage addToken={addToken}/>} />
+
+      <Route path="/adminPage" element={<AdminPage addToken={addToken}/>} />
 
     </Routes>
     </BrowserRouter>

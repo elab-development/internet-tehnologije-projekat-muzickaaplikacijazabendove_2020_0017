@@ -30,7 +30,7 @@ const AdminLogInPage = ({addToken}) => {
               //ulogovani korisnik
               window.sessionStorage.setItem("auth_token", res.data.access_token);
               addToken(res.data.access_token);
-              navigate('/');
+              navigate('/adminPage');
             }
           });
         } catch (error) {
@@ -45,7 +45,8 @@ const AdminLogInPage = ({addToken}) => {
 
 
     return (
-        <div className='adminLoginPage'>
+        <div className='logInPage'>
+          <h3>Login as administrator:</h3>
             <input type='email' 
             placeholder='Email' 
             name="email" 
