@@ -207,6 +207,8 @@ function App() {
       setResult(res.data);
     })
   }
+
+  
   
   return (
     <BrowserRouter>
@@ -246,7 +248,7 @@ function App() {
 
       <Route path="/adminLogin" element={<AdminLogInPage addToken={addToken}/>} />
 
-      <Route path="/adminPage" element={<AdminPage addToken={addToken}/>} />
+      <Route path="/adminPage" element={<AdminPage token={token} bands={bands}/>} />
 
     </Routes>
     </BrowserRouter>
