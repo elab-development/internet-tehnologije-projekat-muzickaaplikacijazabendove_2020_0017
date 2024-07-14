@@ -62,7 +62,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/bands', [BandController::class, 'store']);
     Route::delete('/bands/{id}', [BandController::class, 'destroy']);
 
+    Route::post('/songs', [SongController::class, 'store']);
     Route::delete('/songs/{id}', [SongController::class, 'destroy']);
+
+    Route::delete('/comments/{id}', [CommentController::class, 'destroy']);
 });
 
 Route::get('/users/{id}', [UserController::class, 'show']);

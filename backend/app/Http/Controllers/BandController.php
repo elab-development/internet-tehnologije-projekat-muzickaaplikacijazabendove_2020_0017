@@ -79,7 +79,13 @@ class BandController extends Controller
             $song->delete();
         }
 
+        foreach ($band->comments as $comment) {
+           
+            $comment->delete();
+        }
+
         $band->favoriteBands()->delete();
+    
         $band->delete();
         return response()->json(['success' => true, 'bandId' => $band->id]);
     }

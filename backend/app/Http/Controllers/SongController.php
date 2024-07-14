@@ -30,7 +30,16 @@ class SongController extends Controller
      */
     public function store(StoreSongRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $song = Song::create([
+            'title' => $validated['title'],
+            'duration' => $validated['duration'],
+            'band_id' => $validated['band_id'],
+        ]);
+
+        
+        return response()->json(['success' => true, 'song' => $song], 201);
     }
 
     /**

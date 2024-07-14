@@ -12,6 +12,7 @@ class Song extends Model
     protected $fillable = [
         'title',
         'duration',
+        'band_id',
     ];
 
     public function band() {
