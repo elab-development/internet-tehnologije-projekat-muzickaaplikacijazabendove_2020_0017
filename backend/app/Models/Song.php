@@ -9,6 +9,11 @@ class Song extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'duration',
+    ];
+
     public function band() {
         return $this->belongsTo(Band::class);
     }

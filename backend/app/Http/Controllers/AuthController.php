@@ -93,6 +93,14 @@ class AuthController extends Controller
         ];
     }
 
+    // public function adminLogout()
+    // {
+    //     auth()->user()->tokens()->delete();
+    //     return [
+    //         'message' => 'You have successfully logged out and token was successfully deleted'
+    //     ];
+    // }
+
     public function adminLogout(Request $request)
     {
         auth()->guard('admin')->user()->tokens()->delete();

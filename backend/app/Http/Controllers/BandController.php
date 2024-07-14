@@ -70,8 +70,17 @@ class BandController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Band $band)
+    public function destroy($id)
     {
-        //
+        $band = Band::findOrFail($id);
+
+        foreach ($band->songs as $song) {
+            $song->favoriteSong()->delete();
+            $song->delete();
+        }
+
+        $band->favoriteBands()->delete();
+        $band->delete();
+        return response()->json(['success' => true, 'bandId' => $band->id]);
     }
 }

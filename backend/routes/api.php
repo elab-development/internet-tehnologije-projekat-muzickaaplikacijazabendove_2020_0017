@@ -60,6 +60,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //Rute za admina
     Route::post('/bands', [BandController::class, 'store']);
+    Route::delete('/bands/{id}', [BandController::class, 'destroy']);
+
+    Route::delete('/songs/{id}', [SongController::class, 'destroy']);
 });
 
 Route::get('/users/{id}', [UserController::class, 'show']);

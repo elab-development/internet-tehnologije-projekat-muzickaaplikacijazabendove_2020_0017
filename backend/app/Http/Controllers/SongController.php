@@ -66,8 +66,16 @@ class SongController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Song $song)
+    public function destroy($id)
     {
-        //
+        $song = Song::findOrFail($id);
+
+        if (!$song) {
+            return response()->json(['success' => false, 'message' => 'Song not found'], 404);
+        }
+
+        $song->favoriteSong()->delete();
+        $song->delete();
+        return response()->json(['success' => true, 'songId' => $song->id]);
     }
 }
