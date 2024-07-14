@@ -92,10 +92,6 @@ const AdminPage = ({ token, bands, handleCreateBand, deleteBand }) => {
   };
 
 
-  // Brisanje komentara
-  const deleteComment = async (song) => {
-  };
-
   function handleClick(ev) {
     ev.preventDefault();
     const bandData = {
@@ -153,7 +149,7 @@ const AdminPage = ({ token, bands, handleCreateBand, deleteBand }) => {
       {/* BENDOVI */}
 
       <div className='bands'>
-        <BandsForAdmin bandsList={bands} deleteBand={deleteBand} createSong={createSong} deleteSong={deleteSong} deleteComment={deleteComment}/>
+        <BandsForAdmin bandsList={bands} deleteBand={deleteBand} createSong={createSong} deleteSong={deleteSong}/>
       </div>
 
 
