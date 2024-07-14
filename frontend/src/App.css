@@ -313,6 +313,22 @@ body {
   font-size: 18px;
 }
 
+.details > div {
+  margin-top: 10px;
+}
+
+.details .songsForAdmin,
+.details .commentsForAdmin {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.details .songsForAdmin h4,
+.details .commentsForAdmin h4 {
+    margin-top: 0;
+}
+
 .buttonsContainer {
   margin-left: 10px;
 }

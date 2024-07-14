@@ -58,8 +58,8 @@ function NavBar({token, onSearch}) {
         
         <Link to="/logIn"><button className='logIn'>Log in</button></Link> :
         <div>
-          <Link to="/favBands"><button className='favoriteBandsPageBtn'>Favorite bands</button></Link>
-          <Link to="/favSongs"><button className='favoriteSongsPageBtn'>Favorite songs</button></Link>
+          <Link to="/favoriteBands"><button className='favoriteBandsPageBtn'>Favorite bands</button></Link>
+          <Link to="/favoriteSongs"><button className='favoriteSongsPageBtn'>Favorite songs</button></Link>
           <button className='logIn' onClick = {handleLogout} >Log out</button>
         </div>}
         
@@ -67,7 +67,7 @@ function NavBar({token, onSearch}) {
         <Link to="/signUp"><button className='signUp'>Sign up</button></Link> : null}
         
       </div>
-      </div>
+    </div>
   )
 }
 

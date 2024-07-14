@@ -4,7 +4,7 @@ import FavSongs from './favSongs'
 const FavoriteSongsPage = ({allFavSongs, removeSongFromFav}) => {
   return (
     <div className='favSongsPage'>
-        <FavSongs favSongs={allFavSongs} removeSongFromFav = {removeSongFromFav}/>
+        <FavSongs allFavSongs={allFavSongs} removeSongFromFav = {removeSongFromFav}/>
         
     </div>
   )

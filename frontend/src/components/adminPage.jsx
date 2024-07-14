@@ -1,81 +1,126 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import BandsForAdmin from './bandsForAdmin';
+import { useNavigate } from 'react-router-dom';
 
-const AdminPage = ({ token }) => {
+const AdminPage = ({ token, bands, handleCreateBand, deleteBand }) => {
   const [bandName, setBandName] = useState('');
   const [bandGenre, setBandGenre] = useState('');
   const [bandDescription, setBandDescription] = useState('');
   const [bandsList, setBandsList] = useState([]);
 
-  // Ucitavanje bendova
-  useEffect(() => {
-    loadBands();
-  }, []);
+  const [songTitle, setSongTitle] = useState('');
+  const [songDuration, setSongDuration] = useState('');
+  const [songs, setSongs] = useState([]);
 
-  const loadBands = async () => {
+  const navigate = useNavigate();
+
+
+  // Odjavljivanje administratora
+  function handleLogout() {
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'api/logout',
+      headers: { 
+        'Authorization': 'Bearer '+ window.sessionStorage.getItem("auth_token")
+      }
+    };
+    axios.request(config)
+    .then((response) => {
+      console.log(JSON.stringify(response.data));
+      window.sessionStorage.setItem("auth_token", null);
+      alert("Uspesno ste se odjavili.");
+      navigate('/');
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+
+  const loadSongs = async (band) => {
     try {
-      const response = await axios.get("/api/bands");
+      const response = await axios.get("/api/songs");
       console.log(response.data);
-      setBandsList(response.data);
+      setSongs(response.data);
     } catch (error) {
-      console.error('Error fetching bands:', error);
+      console.error('Error fetching songs:', error);
     }
   };
 
-  // Funkcija za kreiranje benda
-  const handleCreateBand = async (e) => {
-    e.preventDefault();
 
+  // Kreiranje pesme
+  const createSong = async (songData) => {
+
+    try {
+      console.log(songData);
+      const response = await axios.post('/api/songs', songData, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      console.log(response.data);
+      setSongTitle('');
+      setSongDuration('');
+    } catch (error) {
+      console.error('There was an error creating the song!', error);
+    }
+  };
+
+
+  // Brisanje pesme
+  const deleteSong = async (song) => {
+    try {
+      const response = await axios.delete(`/api/songs/${song.id}`, {
+        headers: {
+          'Authorization': `Bearer ${window.sessionStorage.getItem('auth_token')}`
+        }
+      });
+      console.log(response.data);
+      if (response.data.success === true) {
+        const index = songs.findIndex(song => song.id === response.song.songId);
+        const newSongs = [...songs];
+        newSongs.splice(index, 1);
+        setSongs(newSongs);
+        loadSongs();
+      }
+    } catch (error) {
+      console.error('There was an error deleting the song!', error);
+    }
+  };
+
+
+  // Brisanje komentara
+  const deleteComment = async (song) => {
+  };
+
+  function handleClick(ev) {
+    ev.preventDefault();
     const bandData = {
       name: bandName,
       genre: bandGenre,
       description: bandDescription
     };
-
-    try {
-      const response = await axios.post('/api/bands', bandData, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      console.log(response.data);
-      setBandName('');
-      setBandGenre('');
-      setBandDescription('');
-      loadBands();
-    } catch (error) {
-      console.error('There was an error creating the band!', error);
-    }
-  };
-
-  // Funkcija za brisanje benda
-  const deleteBand = async (band) => {
-    try {
-      const response = await axios.delete(`/api/bands/${band.id}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      console.log(response.data);
-      if (response.data.success === true) {
-        const index = bandsList.findIndex(band => band.id === response.data.bandId);
-        const newBands = [...bandsList];
-        newBands.splice(index, 1);
-        setBandsList(newBands);
-      }
-    } catch (error) {
-      console.error('There was an error deleting the band!', error);
-    }
+    handleCreateBand(bandData);
   }
   
 
   return (
     <div>
+      <div className='navBar'>
+      <h1>Admin Page</h1>
+      <div className='loginSignup'>
+        <button className='logIn' onClick = {handleLogout} >Log out</button>
+        
+      </div>
+    </div>
+
       <h1>Admin Page</h1>
       <div className="create-band-form">
         <h3>Create Band</h3>
-        <form onSubmit={handleCreateBand}>
+        <form onSubmit={handleClick}>
           <div className="form-group">
             <label>Band Name:</label>
             <input 
@@ -103,9 +148,12 @@ const AdminPage = ({ token }) => {
           
         </form>
       </div>
-      
+
+
+      {/* BENDOVI */}
+
       <div className='bands'>
-        <BandsForAdmin bandsList={bandsList} deleteBand={deleteBand}/>
+        <BandsForAdmin bandsList={bands} deleteBand={deleteBand} createSong={createSong} deleteSong={deleteSong} deleteComment={deleteComment}/>
       </div>
 
 
