@@ -21,7 +21,7 @@ const AdminLogInPage = ({addToken}) => {
         e.preventDefault();
     
         console.log(userData);
-        try {
+        
           // Slanje POST zahteva ka API-ju za logovanje
           axios.post('api/adminLogin', userData)
           .then((res) => {
@@ -32,13 +32,15 @@ const AdminLogInPage = ({addToken}) => {
               addToken(res.data.access_token);
               navigate('/adminPage');
             }
-          });
-        } catch (error) {
+          })
+          .catch( (error) => {
           // Obrada greške
-          if (error.response.status === 401) {
+          if (error.response && error.response.status === 401) {
             alert('Pogrešan email ili lozinka. Pokušajte ponovo.');
+          } else {
+            console.error('Došlo je do greške:', error.message);
           } 
-        }
+        });
     }
 
 

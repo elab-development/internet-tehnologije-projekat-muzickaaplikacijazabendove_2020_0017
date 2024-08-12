@@ -4,7 +4,7 @@ import { IoSearch } from "react-icons/io5";
 import axios from "axios";
 
 
-function NavBar({token, onSearch}) {
+function NavBar({token, onSearch, admin}) {
 
   //ODJAVLJIVANJE
   function handleLogout() {
@@ -38,6 +38,8 @@ function NavBar({token, onSearch}) {
 
   return (
     <div className='navBar'>
+      {admin ? null
+      : 
       <div className='searchBox'>
         <input 
             type='search' 
@@ -52,15 +54,19 @@ function NavBar({token, onSearch}) {
               <IoSearch />
         </button>
 
-      </div>
+      </div>}
       <div className='loginSignup'>
         {token == null ? 
         
         <Link to="/logIn"><button className='logIn'>Log in</button></Link> :
         <div>
-          <Link to="/favoriteBands"><button className='favoriteBandsPageBtn'>Favorite bands</button></Link>
-          <Link to="/favoriteSongs"><button className='favoriteSongsPageBtn'>Favorite songs</button></Link>
-          <button className='logIn' onClick = {handleLogout} >Log out</button>
+          {admin ? null :
+          <div>
+            <Link to="/favoriteBands"><button className='favoriteBandsPageBtn'>Favorite bands</button></Link>
+            <Link to="/favoriteSongs"><button className='favoriteSongsPageBtn'>Favorite songs</button></Link>
+          
+            <button className='logIn' onClick = {handleLogout} >Log out</button>
+          </div>}
         </div>}
         
         {token == null ? 

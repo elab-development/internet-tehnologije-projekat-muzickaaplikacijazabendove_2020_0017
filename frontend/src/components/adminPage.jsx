@@ -2,8 +2,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import BandsForAdmin from './bandsForAdmin';
 import { useNavigate } from 'react-router-dom';
+import NavBar from './navBar';
 
-const AdminPage = ({ token, bands, handleCreateBand, deleteBand }) => {
+const AdminPage = ({ token, bands, handleCreateBand, deleteBand}) => {
   const [bandName, setBandName] = useState('');
   const [bandGenre, setBandGenre] = useState('');
   const [bandDescription, setBandDescription] = useState('');
@@ -14,7 +15,6 @@ const AdminPage = ({ token, bands, handleCreateBand, deleteBand }) => {
   const [songs, setSongs] = useState([]);
 
   const navigate = useNavigate();
-
 
   // Odjavljivanje administratora
   function handleLogout() {
@@ -39,7 +39,6 @@ const AdminPage = ({ token, bands, handleCreateBand, deleteBand }) => {
     });
   }
 
-
   const loadSongs = async (band) => {
     try {
       const response = await axios.get("/api/songs");
@@ -50,6 +49,9 @@ const AdminPage = ({ token, bands, handleCreateBand, deleteBand }) => {
     }
   };
 
+  useEffect(() => {
+    loadSongs();
+  }, []);
 
   // Kreiranje pesme
   const createSong = async (songData) => {
@@ -62,15 +64,17 @@ const AdminPage = ({ token, bands, handleCreateBand, deleteBand }) => {
         }
       });
       console.log(response.data);
+      setSongs((prevSongs) => [...prevSongs, response.data]);
       setSongTitle('');
       setSongDuration('');
+      loadSongs();
     } catch (error) {
       console.error('There was an error creating the song!', error);
     }
   };
 
 
-  // Brisanje pesme
+  // // Brisanje pesme
   const deleteSong = async (song) => {
     try {
       const response = await axios.delete(`/api/songs/${song.id}`, {
@@ -80,11 +84,10 @@ const AdminPage = ({ token, bands, handleCreateBand, deleteBand }) => {
       });
       console.log(response.data);
       if (response.data.success === true) {
-        const index = songs.findIndex(song => song.id === response.song.songId);
+        const index = songs.findIndex(song => song.id === response.data.songId);
         const newSongs = [...songs];
         newSongs.splice(index, 1);
         setSongs(newSongs);
-        loadSongs();
       }
     } catch (error) {
       console.error('There was an error deleting the song!', error);
@@ -92,6 +95,7 @@ const AdminPage = ({ token, bands, handleCreateBand, deleteBand }) => {
   };
 
 
+  // Kreiranje benda
   function handleClick(ev) {
     ev.preventDefault();
     const bandData = {
@@ -100,6 +104,9 @@ const AdminPage = ({ token, bands, handleCreateBand, deleteBand }) => {
       description: bandDescription
     };
     handleCreateBand(bandData);
+    setBandName('');
+    setBandGenre('');
+    setBandDescription('');
   }
   
 
@@ -107,6 +114,7 @@ const AdminPage = ({ token, bands, handleCreateBand, deleteBand }) => {
     <div>
       <div className='navBar'>
       <h1>Admin Page</h1>
+      <NavBar token={token} admin={true}/>
       <div className='loginSignup'>
         <button className='logIn' onClick = {handleLogout} >Log out</button>
         
@@ -114,6 +122,7 @@ const AdminPage = ({ token, bands, handleCreateBand, deleteBand }) => {
     </div>
 
       <h1>Admin Page</h1>
+      
       <div className="create-band-form">
         <h3>Create Band</h3>
         <form onSubmit={handleClick}>

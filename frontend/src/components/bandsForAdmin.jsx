@@ -3,8 +3,6 @@ import BandForAdmin from './bandForAdmin'
 
 const BandsForAdmin = ({bandsList, deleteBand, createSong, deleteSong}) => {
 
-
-
   return (
     <div className='allBands'>
         {bandsList.map((band) => (

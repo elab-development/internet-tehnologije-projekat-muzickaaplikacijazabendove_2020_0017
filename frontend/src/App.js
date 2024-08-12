@@ -143,9 +143,6 @@ function App() {
         }
       });
       console.log(response.data);
-      setBandName('');
-      setBandGenre('');
-      setBandDescription('');
       loadBands();
     } catch (error) {
       console.error('There was an error creating the band!', error);
@@ -306,7 +303,7 @@ function App() {
       <Routes>
         <Route path='/' element={
           <div>
-            <NavBar token={token} onSearch={handleSearch} />
+            <NavBar token={token} onSearch={handleSearch} admin={false}/>
             {isSearching ? (
               <div>
                 <h1>Search Results</h1>
@@ -326,16 +323,9 @@ function App() {
         <Route path='/bands'>
           <Route path=':bandId' element={
             <BandPage
-              bands={bands}
-              favBands={favBands}
-              removeFromFav={removeFromFav}
-              addToFav={addToFav}
-              favSongs={favSongs}
-              addSongToFav={addSongToFav}
-              removeSongFromFav={removeSongFromFav}
-              bandRatings={bandRatings}
-              handleRating={handleRating}
-              token={token}
+              bands={bands} favBands={favBands} removeFromFav={removeFromFav} addToFav={addToFav}
+              favSongs={favSongs} addSongToFav={addSongToFav} removeSongFromFav={removeSongFromFav} bandRatings={bandRatings}
+              handleRating={handleRating} token={token}
             />
           } />
         </Route>

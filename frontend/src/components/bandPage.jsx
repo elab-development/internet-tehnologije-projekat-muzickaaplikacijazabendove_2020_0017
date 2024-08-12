@@ -40,8 +40,12 @@ const BandPage = ({bands, favBands, removeFromFav, addToFav, favSongs, addSongTo
 
   
     return (
-        // <div className='bandItem' style={{backgroundImage: `url(${band.image})`}}>
-        <div className='bandItem' style={{backgroundImage: "https://picsum.photos/200"}}>
+        <div className='bandItem'
+        style={{
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${band.image.url})`,
+            backgroundPosition: 'center', 
+            height: '100%',
+        }}>
 
             <NavBarBand band={band} favBands={favBands} removeFromFav={removeFromFav} addToFav={addToFav} bandRatings={bandRatings} handleRating={handleRating} token={token}/>
 

@@ -94,14 +94,15 @@ body {
 
 .card-img {
   width: 100%;
-  height: auto;
+  max-height: 270px;
+  object-fit: cover;
   border-radius: 5px;
 }
 
 .card-title {
   margin-top: 10px;
   font-size: 18px;
-  color: #333;
+  color: #454545;
 }
 
 .band-link {
@@ -208,7 +209,7 @@ body {
 .bandName h1 {
   margin: 0;
   font-size: 24px;
-  color: #333;
+  color: #c2c2c2;
 }
 
 .ratingsContainer {
@@ -227,7 +228,7 @@ body {
 
 .currentRating {
   font-size: 14px;
-  color: #666;
+  color: #cfcfcf;
   margin-left: 10px; /* Adjust spacing between rating and buttons */
 }
 
@@ -260,6 +261,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 8px;
   overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.378);
 }
 
 .bandInfo {
@@ -270,6 +272,7 @@ body {
 }
 
 .commentsSection {
+  color: #c2c2c2;
   margin-top: 20px;
 }
 .allComments {
@@ -289,6 +292,7 @@ body {
 
 .songsSection {
   margin-top: 20px;
+  color: #c2c2c2;
 }
 .allSongs {
   border-top: 1px solid #ccc;
@@ -302,6 +306,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 8px;
   margin-bottom: 10px;
+  
 }
 
 .songDetails {

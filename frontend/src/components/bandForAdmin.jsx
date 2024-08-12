@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SongsForAdmin from './songsForAdmin';
 import axios from 'axios';
 import CommentsForAdmin from './commentsForAdmin';
@@ -6,8 +6,8 @@ import InputMask from 'react-input-mask';
 
 const BandForAdmin = ({band, deleteBand, createSong, deleteSong}) => {
 
-    const [comments, setComments] = useState([band.comments]);
-    // const [songs, setSongs] = useState([band.songs]);
+    const [comments, setComments] = useState(band.comments);
+    const [songs, setSongs] = useState([band.songs]);
     const [details, setDetails] = useState(false);
 
     const [songTitle, setSongTitle] = useState('');
@@ -20,7 +20,7 @@ const BandForAdmin = ({band, deleteBand, createSong, deleteSong}) => {
 
     const handleDetails = () => {
         setDetails(!details);
-        console.log(band.songs);
+        console.log(songs);
         console.log(band.comments);
     }
 
@@ -42,8 +42,11 @@ const BandForAdmin = ({band, deleteBand, createSong, deleteSong}) => {
             title: songTitle,
             duration: songDuration,
             band_id: band.id,
-          };
-          createSong(songData);
+        };
+        createSong(songData);
+        setSongs([...songs, songData]);
+        setSongTitle('');
+        setSongDuration('');
     };
 
     // Brisanje komentara
@@ -100,7 +103,7 @@ const BandForAdmin = ({band, deleteBand, createSong, deleteSong}) => {
                             value={songTitle} 
                             onChange={(e) => setSongTitle(e.target.value)} 
                         />
-                        <label>Song suration:</label>
+                        <label>Song duration:</label>
                         <InputMask 
                             mask="99:99" 
                             maskChar={null} 

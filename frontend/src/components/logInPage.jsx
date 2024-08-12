@@ -22,10 +22,8 @@ const LogInPage = ({addToken}) => {
     e.preventDefault();
 
     console.log(userData);
-    try {
-
-      // Slanje POST zahteva ka API-ju za logovanje
-      axios.post('api/login', userData)
+    
+    axios.post('api/login', userData)
       .then((res) => {
         console.log(res.data);
         if(res.data.success === true){
@@ -34,14 +32,15 @@ const LogInPage = ({addToken}) => {
           addToken(res.data.access_token);
           navigate('/');
         }
+      })
+      .catch( (error) => {
+        // Obrada greške
+        if (error.response && error.response.status === 401) {
+          alert('Pogrešan email ili lozinka. Pokušajte ponovo.');
+        } else {
+          console.error('Došlo je do greške:', error.message);
+        }
       });
-      
-    } catch (error) {
-      // Obrada greške
-      if (error.response.status === 401) {
-        alert('Pogrešan email ili lozinka. Pokušajte ponovo.');
-      } 
-    }
 
 
   }

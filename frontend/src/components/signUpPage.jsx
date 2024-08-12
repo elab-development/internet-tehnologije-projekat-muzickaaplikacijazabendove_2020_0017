@@ -13,14 +13,13 @@ const SignUpPage = () => {
 
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  let navigate = useNavigate();
+
   const handleChange = (e) => {
     let newUserData = userData;
     newUserData[e.target.name] = e.target.value;
     setUserData(newUserData);
   };
-
-  let navigate = useNavigate();
-
 
   const handleSignUp = (e) => {
     e.preventDefault();
