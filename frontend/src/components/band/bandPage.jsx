@@ -3,7 +3,7 @@ import NavBarBand from './navBarBand'
 import Comments from './comments'
 import Songs from './songs'
 import { useParams } from 'react-router-dom'
-import Bands from './bands'
+import Bands from '../bands'
 import axios from 'axios'
 
 const BandPage = ({bands, favBands, removeFromFav, addToFav, favSongs, addSongToFav, removeSongFromFav, bandRatings, handleRating, token}) => {

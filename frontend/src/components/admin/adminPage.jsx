@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import BandsForAdmin from './bandsForAdmin';
 import { useNavigate } from 'react-router-dom';
-import NavBar from './navBar';
+import NavBar from '../navBar';
 
 const AdminPage = ({ token, bands, handleCreateBand, deleteBand}) => {
   const [bandName, setBandName] = useState('');

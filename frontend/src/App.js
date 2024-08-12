@@ -1,18 +1,18 @@
 import './App.css';
 import Bands from './components/bands';
-import Songs from './components/songs';
+import Songs from './components/band/songs';
 import NavBar from './components/navBar';
 import LogInPage from './components/logInPage';
 import SignUpPage from './components/signUpPage';
-import BandPage from './components/bandPage';
-import FavoriteBandsPage from './components/favoriteBandsPage';
-import FavoriteSongsPage from './components/favoriteSongsPage';
+import BandPage from './components/band/bandPage';
+import FavoriteBandsPage from './components/favoriteBands/favoriteBandsPage';
+import FavoriteSongsPage from './components/favoriteSongs/favoriteSongsPage';
 
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AdminLogInPage from './components/adminLogInPage';
-import AdminPage from './components/adminPage';
+import AdminLogInPage from './components/admin/adminLogInPage';
+import AdminPage from './components/admin/adminPage';
 
 const CLIENT_ID = "f612827bafd647c1b4e1c792039899a5";
 const CLIEN_SECRET = "38dbf6cb0ad04706b4db8efb52c54472";
