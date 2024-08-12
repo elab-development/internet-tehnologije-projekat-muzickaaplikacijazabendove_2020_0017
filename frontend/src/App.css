@@ -234,6 +234,9 @@ body {
 
 .buttonsContainer {
   margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
 }
 
 .addToFavoritesButton {
@@ -306,11 +309,11 @@ body {
   border: 1px solid #ccc;
   border-radius: 8px;
   margin-bottom: 10px;
-  
+  background-color: #00000046;
 }
 
 .songDetails {
-  flex: 1; /* Ostavlja prostor za dugme za dodavanje u omiljene */
+  flex: 1;
 }
 
 .songDetails p {
@@ -320,6 +323,7 @@ body {
 
 .details > div {
   margin-top: 10px;
+  background-color: #60a7ee47;
 }
 
 .details .songsForAdmin,
@@ -397,6 +401,7 @@ body {
 
 .form-group {
   margin-bottom: 1rem;
+  padding: 10px;
 }
 
 .form-group label {
@@ -406,7 +411,7 @@ body {
 
 .form-group input,
 .form-group textarea {
-  width: 100%;
+  width: 90%;
   padding: 0.5rem;
   font-size: 1rem;
   border: 1px solid #ccc;
@@ -432,5 +437,41 @@ body {
 }
 
 
+.bandForAdmin {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 5px;
+  margin: 10px 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.359);
+}
 
+.topSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.bandDetails {
+  flex: 1;
+}
+
+.bandDetails p {
+  margin: 4px 0;
+  color: #000000;
+}
+
+.bandDetails h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.bandsForAdmin {
+  display: flex;
+  flex-direction: column;
+}
+
+.createBtn {
+  margin: 8px;
+}

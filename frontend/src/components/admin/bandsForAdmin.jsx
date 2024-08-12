@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import BandForAdmin from './bandForAdmin'
 
-const BandsForAdmin = ({bandsList, deleteBand, createSong, deleteSong}) => {
+const BandsForAdmin = ({bandsList, deleteBand}) => {
 
   return (
-    <div className='allBands'>
+    <div>
         {bandsList.map((band) => (
-          <BandForAdmin band = {band} key={band.id} deleteBand={deleteBand} createSong={createSong} 
-          deleteSong={deleteSong}/>
+          <BandForAdmin band = {band} key={band.id} deleteBand={deleteBand}/>
       ))}
     </div>
   )

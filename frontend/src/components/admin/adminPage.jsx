@@ -8,11 +8,6 @@ const AdminPage = ({ token, bands, handleCreateBand, deleteBand}) => {
   const [bandName, setBandName] = useState('');
   const [bandGenre, setBandGenre] = useState('');
   const [bandDescription, setBandDescription] = useState('');
-  const [bandsList, setBandsList] = useState([]);
-
-  const [songTitle, setSongTitle] = useState('');
-  const [songDuration, setSongDuration] = useState('');
-  const [songs, setSongs] = useState([]);
 
   const navigate = useNavigate();
 
@@ -38,62 +33,6 @@ const AdminPage = ({ token, bands, handleCreateBand, deleteBand}) => {
       console.log(error);
     });
   }
-
-  const loadSongs = async (band) => {
-    try {
-      const response = await axios.get("/api/songs");
-      console.log(response.data);
-      setSongs(response.data);
-    } catch (error) {
-      console.error('Error fetching songs:', error);
-    }
-  };
-
-  useEffect(() => {
-    loadSongs();
-  }, []);
-
-  // Kreiranje pesme
-  const createSong = async (songData) => {
-
-    try {
-      console.log(songData);
-      const response = await axios.post('/api/songs', songData, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      console.log(response.data);
-      setSongs((prevSongs) => [...prevSongs, response.data]);
-      setSongTitle('');
-      setSongDuration('');
-      loadSongs();
-    } catch (error) {
-      console.error('There was an error creating the song!', error);
-    }
-  };
-
-
-  // // Brisanje pesme
-  const deleteSong = async (song) => {
-    try {
-      const response = await axios.delete(`/api/songs/${song.id}`, {
-        headers: {
-          'Authorization': `Bearer ${window.sessionStorage.getItem('auth_token')}`
-        }
-      });
-      console.log(response.data);
-      if (response.data.success === true) {
-        const index = songs.findIndex(song => song.id === response.data.songId);
-        const newSongs = [...songs];
-        newSongs.splice(index, 1);
-        setSongs(newSongs);
-      }
-    } catch (error) {
-      console.error('There was an error deleting the song!', error);
-    }
-  };
-
 
   // Kreiranje benda
   function handleClick(ev) {
@@ -157,8 +96,8 @@ const AdminPage = ({ token, bands, handleCreateBand, deleteBand}) => {
 
       {/* BENDOVI */}
 
-      <div className='bands'>
-        <BandsForAdmin bandsList={bands} deleteBand={deleteBand} createSong={createSong} deleteSong={deleteSong}/>
+      <div className='bandsForAdmin'>
+        <BandsForAdmin bandsList={bands} deleteBand={deleteBand}/>
       </div>
 
 

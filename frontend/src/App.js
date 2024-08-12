@@ -134,7 +134,6 @@ function App() {
 
   // Kreiranje benda
   const handleCreateBand = async (bandData) => {
-
     try {
       console.log(bandData);
       const response = await axios.post('/api/bands', bandData, {

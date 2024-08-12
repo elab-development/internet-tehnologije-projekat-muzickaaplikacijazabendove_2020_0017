@@ -4,10 +4,10 @@ import axios from 'axios';
 import CommentsForAdmin from './commentsForAdmin';
 import InputMask from 'react-input-mask';
 
-const BandForAdmin = ({band, deleteBand, createSong, deleteSong}) => {
+const BandForAdmin = ({band, deleteBand}) => {
 
     const [comments, setComments] = useState(band.comments);
-    const [songs, setSongs] = useState([band.songs]);
+    const [songs, setSongs] = useState(band.songs);
     const [details, setDetails] = useState(false);
 
     const [songTitle, setSongTitle] = useState('');
@@ -20,9 +20,8 @@ const BandForAdmin = ({band, deleteBand, createSong, deleteSong}) => {
 
     const handleDetails = () => {
         setDetails(!details);
-        console.log(songs);
-        console.log(band.comments);
     }
+    
 
     const validateDuration = (duration) => {
         const regex = /^([0-5][0-9]):[0-5][0-9]$/; // Format MM:SS
@@ -49,6 +48,39 @@ const BandForAdmin = ({band, deleteBand, createSong, deleteSong}) => {
         setSongDuration('');
     };
 
+    // Kreiranje pesme
+    const createSong = async (songData) => {
+        try {
+          console.log(songData);
+          const response = await axios.post('/api/songs', songData, {
+            headers: {
+              'Authorization': 'Bearer '+ window.sessionStorage.getItem("auth_token")
+            }
+          });
+          console.log(response.data);
+        } catch (error) {
+          console.error('There was an error creating the song!', error);
+        }
+    };
+
+    // Brisanje pesme
+    const deleteSong = async (song) => {
+        try {
+        const response = await axios.delete(`/api/songs/${song.id}`, {
+            headers: {
+            'Authorization': `Bearer ${window.sessionStorage.getItem('auth_token')}`
+            }
+        });
+        console.log(response.data);
+        if (response.data.success === true) {
+            const updatedSongs = songs.filter(s => s.id !== song.id);
+            setSongs(updatedSongs);
+        }
+        } catch (error) {
+        console.error('There was an error deleting the song!', error);
+        }
+    };
+
     // Brisanje komentara
     const deleteComment = async (comment) => {
       try {
@@ -59,41 +91,38 @@ const BandForAdmin = ({band, deleteBand, createSong, deleteSong}) => {
         });
         console.log(response.data);
         if (response.data.success === true) {
-        //   const index = comments.findIndex(comment => comment.id === response.commentId);
-        //   const newComments = [...comments];
-        //   newComments.splice(index, 1);
-        //   setComments(newComments);
             const updatedComments = comments.filter(c => c.id !== comment.id);
             setComments(updatedComments);
-
         }
       } catch (error) {
-        console.error('There was an error deleting the band!', error);
+        console.error('There was an error deleting the comment!', error);
       }
     };
 
     
     return (
-        <div className='song'>
-            <div className='songDetails'>
-            <p><h3>{band.name}</h3></p>
-            <p>{band.genre}</p>
-            </div>
-            <div className='buttonsContainer'>
-                <button className='addToFavoritesButton' onClick={handleDetails}>Details</button>
-            
-            </div>
-            <div className='buttonsContainer'>
-                <button className='addToFavoritesButton' onClick={handleClick}>Remove</button>
-            
+        <div className='bandForAdmin'>
+            <div className='topSection'>
+                <div className='bandDetails'>
+                    <p><h3>{band.name}</h3></p>
+                    <p>{band.genre}</p>
+                </div>
+
+                <div className='buttonsContainer'>
+                    <button className='addToFavoritesButton' onClick={handleDetails}>Details</button>
+                </div>
+                <div className='buttonsContainer'>
+                    <button className='addToFavoritesButton' onClick={handleClick}>Remove</button>
+                </div>
             </div>
 
             { details ?
                 (<div className='details'>
                     <div className="songsForAdmin">
-                        <SongsForAdmin songs={band.songs} deleteSong={deleteSong} createSong={createSong} band={band}/>
+                        <SongsForAdmin songs={songs} deleteSong={deleteSong} createSong={createSong} band={band}/>
                     </div>
-                    <div className="create-band-form">
+
+                    <div className="create-song-form">
                     <h3>Create Song</h3>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
@@ -113,23 +142,16 @@ const BandForAdmin = ({band, deleteBand, createSong, deleteSong}) => {
                             }} 
                             placeholder="MM:SS or HH:MM:SS"
                         />
-                        <button type="submit">Create Song</button>
+                        <button type="submit" className='createBtn'>Create Song</button>
                         </div>
                     </form>
                     </div>
 
                     <div className="commentsForAdmin">
-                        <CommentsForAdmin comments={band.comments} deleteComment={deleteComment}/>
+                        <CommentsForAdmin comments={comments} deleteComment={deleteComment}/>
                     </div>
                 </div>) : null
             }
-
-            
-            
-
-
-
-
         </div>
     )
 }
