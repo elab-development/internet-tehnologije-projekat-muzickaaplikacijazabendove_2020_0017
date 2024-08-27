@@ -38,12 +38,10 @@ class FavoriteSongController extends Controller
      */
     public function store(Request $request)
     {
-        // Validacija zahteva
         $request->validate([
             'song_id' => 'required|exists:songs,id', 
         ]);
 
-        // Preuzimanje prijavljenog korisnika
         $user = Auth::user();
 
         $existingFavorite = FavoriteSong::where('user_id', $user->id)
@@ -54,7 +52,7 @@ class FavoriteSongController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Song is already in favorites',
-            ], 409); // 409 Conflict
+            ], 409); 
         }
 
         try {

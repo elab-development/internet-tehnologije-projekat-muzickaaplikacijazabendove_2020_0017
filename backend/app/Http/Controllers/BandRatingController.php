@@ -34,10 +34,6 @@ class BandRatingController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        // $request->validate([
-        //     'band_id' => 'required|exists:bands,id',
-        //     'rating' => 'required|integer|min=1|max=5'
-        // ]);
 
         $rating = BandRating::updateOrCreate(
             ['band_id' => $request->band_id, 'user_id' => $user->id],

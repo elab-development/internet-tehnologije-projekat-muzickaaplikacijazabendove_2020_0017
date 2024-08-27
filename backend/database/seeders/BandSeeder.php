@@ -13,6 +13,6 @@ class BandSeeder extends Seeder
      */
     public function run(): void
     {
-        Band::factory(10)->create();
+        Band::factory(20)->create();
     }
 }

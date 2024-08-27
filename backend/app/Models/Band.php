@@ -27,10 +27,6 @@ class Band extends Model
         return $this->hasMany(BandRating::class);
     }
 
-    public function favoriteSongs() {
-        return $this->hasMany(FavoriteSong::class);
-    }
-
     public function songs() {
         return $this->hasMany(Song::class);
     }

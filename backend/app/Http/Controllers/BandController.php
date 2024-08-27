@@ -18,26 +18,16 @@ class BandController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreBandRequest $request)
     {
         $validated = $request->validated();
-
         $band = Band::create([
             'name' => $validated['name'],
             'genre' => $validated['genre'],
             'description' => $validated['description'],
         ]);
-
         return response()->json($band, 201);
     }
 
@@ -49,7 +39,34 @@ class BandController extends Controller
         $band = Band::with(['songs', 'comments'])->find($id);
         return response()->json($band);
     }
+    
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        $band = Band::findOrFail($id);
+        foreach ($band->songs as $song) {
+            $song->favoriteSong()->delete();
+            $song->delete();
+        }
+        foreach ($band->comments as $comment) {
+            $comment->delete();
+        }
+        $band->favoriteBands()->delete();
+        $band->delete();
+        return response()->json(['success' => true, 'bandId' => $band->id]);
+    }
 
+
+    
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -65,28 +82,5 @@ class BandController extends Controller
     public function update(UpdateBandRequest $request, Band $band)
     {
         //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        $band = Band::findOrFail($id);
-
-        foreach ($band->songs as $song) {
-            $song->favoriteSong()->delete();
-            $song->delete();
-        }
-
-        foreach ($band->comments as $comment) {
-           
-            $comment->delete();
-        }
-
-        $band->favoriteBands()->delete();
-    
-        $band->delete();
-        return response()->json(['success' => true, 'bandId' => $band->id]);
     }
 }

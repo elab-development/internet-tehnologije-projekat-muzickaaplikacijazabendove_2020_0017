@@ -40,7 +40,11 @@ Route::get('/songs/{id}', [SongController::class, 'show']);
 
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::post('/adminRegister', [AuthController::class, 'adminRegister']);
+// ruta za registrovanje administratora
+// Route::post('/adminRegister', [AuthController::class, 'adminRegister']);
+
+// Ruta za logovanje administratora
+Route::post('/adminLogin', [AuthController::class, 'adminLogin']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -73,10 +77,6 @@ Route::get('/users/{id}', [UserController::class, 'show']);
 Route::get('/search', [SearchController::class, 'search']);
 
 Route::post('/login', [AuthController::class, 'login']);
-
-// Ruta za logovanje administratora
-Route::post('/adminLogin', [AuthController::class, 'adminLogin']);
-
 
 //Ovo je ostalo od proslog puta
 Route::post('/forgotPassword',[ForgotPasswordController::class, 'sendResetLinkEmail']);

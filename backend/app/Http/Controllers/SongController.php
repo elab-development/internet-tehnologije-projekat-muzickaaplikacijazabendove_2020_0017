@@ -18,27 +18,16 @@ class SongController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreSongRequest $request)
     {
         $validated = $request->validated();
-
         $song = Song::create([
             'title' => $validated['title'],
             'duration' => $validated['duration'],
             'band_id' => $validated['band_id'],
         ]);
-
-        
         return response()->json(['success' => true, 'song' => $song], 201);
     }
 
@@ -48,14 +37,37 @@ class SongController extends Controller
     public function show($id)
     {
         $song = Song::find($id);
-
         if (is_null($song)) {
             return response()->json(['error' => 'Song not found'], 404);
         }
-
         return response()->json($song, 200);
     }
 
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        $song = Song::findOrFail($id);
+        if (!$song) {
+            return response()->json(['success' => false, 'message' => 'Song not found'], 404);
+        }
+        $song->favoriteSong()->delete();
+        $song->delete();
+        return response()->json(['success' => true, 'songId' => $song->id]);
+    }
+
+    
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    
     /**
      * Show the form for editing the specified resource.
      */
@@ -70,21 +82,5 @@ class SongController extends Controller
     public function update(UpdateSongRequest $request, Song $song)
     {
         //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        $song = Song::findOrFail($id);
-
-        if (!$song) {
-            return response()->json(['success' => false, 'message' => 'Song not found'], 404);
-        }
-
-        $song->favoriteSong()->delete();
-        $song->delete();
-        return response()->json(['success' => true, 'songId' => $song->id]);
     }
 }

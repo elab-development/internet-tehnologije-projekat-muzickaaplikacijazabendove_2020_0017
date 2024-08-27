@@ -26,11 +26,9 @@ class UserController extends Controller
     public function show($id) 
     {
         $user = User::find($id);
-
         if(is_null($user)) {
             return response() -> json(['error' => 'User not found'], 404);
         }
-
         return response() -> json($user);
     }
 
