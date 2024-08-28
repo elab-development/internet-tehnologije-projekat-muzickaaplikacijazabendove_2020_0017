@@ -8,7 +8,8 @@ const SignUpPage = () => {
   const [userData, setUserData] = useState({
     name: '',
     email: '',
-    password: ''
+    password: '',
+    role: 'user',
   });
 
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -31,20 +32,19 @@ const SignUpPage = () => {
         return;
       }
 
-      try {
+      
         // Slanje POST zahteva ka API-ju za registrovanje
-        axios.post('api/register', userData)
-          .then((res) => {
-            console.log(res.data);
-          });
-
-          alert('Uspešno ste se registrovali!');
-          navigate("/logIn");
-      } catch (error) {
-        //Obrada greške
-        console.error('Greška prilikom registrovanja:', error);
-        return;
-      }
+      axios.post('api/register', userData)
+        .then((res) => {
+          console.log(res.data);
+          if(res.data.success === true){
+            alert('Uspešno ste se registrovali!');
+            navigate("/logIn");
+          } else {
+            alert('Greska prilikom registrovanja.');
+          }
+        });
+      
     } else {
       alert('Popunite sva polja!');
       return;

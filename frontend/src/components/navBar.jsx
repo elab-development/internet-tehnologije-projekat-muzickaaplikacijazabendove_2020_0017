@@ -57,20 +57,18 @@ function NavBar({token, onSearch, admin}) {
       </div>}
       <div className='loginSignup'>
         {token == null ? 
-        
-        <Link to="/logIn"><button className='logIn'>Log in</button></Link> :
+        <div>
+        <Link to="/logIn"><button className='logIn'>Log in</button></Link>
+        <Link to="/signUp"><button className='signUp'>Sign up</button></Link> </div> :
         <div>
           {admin ? null :
           <div>
             <Link to="/favoriteBands"><button className='favoriteBandsPageBtn'>Favorite bands</button></Link>
             <Link to="/favoriteSongs"><button className='favoriteSongsPageBtn'>Favorite songs</button></Link>
-          
-            <button className='logIn' onClick = {handleLogout} >Log out</button>
-          </div>}
+          </div>
+          }
+          <button className='logIn' onClick = {handleLogout} >Log out</button>
         </div>}
-        
-        {token == null ? 
-        <Link to="/signUp"><button className='signUp'>Sign up</button></Link> : null}
         
       </div>
     </div>

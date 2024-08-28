@@ -33,6 +33,9 @@ function App() {
 
   const [accessToken, setAccessToken] = useState("");
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
   useEffect(() => {
     //API Access Token
     var authParameters = {
@@ -47,10 +50,10 @@ function App() {
       .then(data => setAccessToken(data.access_token))
   }, []);
 
-  // Ucitavanje bendova
-  useEffect(() => {
-    loadBands();
-  }, []);
+  // Učitavanje bendova sa trenutnom stranicom
+useEffect(() => {
+  loadBands(currentPage);
+}, [currentPage]);
 
   const searchBandImages = async (bandName) => {
     try {
@@ -71,16 +74,19 @@ function App() {
     }
   };
 
-  const loadBands = async () => {
+  const loadBands = async (page = 1) => {
     try {
-      const response = await axios.get("/api/bands");
+      const response = await axios.get(`/api/bands?page=${page}`);
       console.log(response.data);
-      const bandsWithImages = await Promise.all(response.data.map(async band => {
+      const { data, current_page, last_page } = response.data;
+      const bandsWithImages = await Promise.all(response.data.data.map(async band => {
         const images = await searchBandImages(band.name);
         const image = images[0] ? images[0] : 'default_image_url';
         return { ...band, image };
       }));
       setBands(bandsWithImages);
+      setCurrentPage(current_page);
+      setTotalPages(response.data.last_page);
     } catch (error) {
       console.error('Error fetching bands:', error);
     }
@@ -145,6 +151,7 @@ function App() {
       loadBands();
     } catch (error) {
       console.error('There was an error creating the band!', error);
+      alert('Nemoguce kreirati bend.');
     }
   };
 
@@ -165,6 +172,7 @@ function App() {
       }
     } catch (error) {
       console.error('There was an error deleting the band!', error);
+      alert('Nemoguce obrisati bend.');
     }
   };
 
@@ -315,7 +323,14 @@ function App() {
                 <h3>Songs</h3>
                 <Songs songs={result.songs} />
               </div>
-            ) : (<Bands bands={bands} />)}
+            ) : (
+              <Bands 
+                bands={bands} 
+                currentPage={currentPage} 
+                totalPages={totalPages} 
+                setCurrentPage={setCurrentPage} 
+              />
+            )}
           </div>
         } />
 
@@ -329,11 +344,11 @@ function App() {
           } />
         </Route>
 
-        <Route path='/favoriteBands' element={<FavoriteBandsPage allFavBands={favBands} />} />
+        <Route path='/favoriteBands' element={<FavoriteBandsPage allFavBands={favBands} removeFromFav={removeFromFav} />} />
         <Route path='/logIn' element={<LogInPage addToken={addToken} />} />
         <Route path='/signUp' element={<SignUpPage />} />
         
-        <Route path='/favoriteSongs' element={<FavoriteSongsPage allFavSongs={favSongs} />} />
+        <Route path='/favoriteSongs' element={<FavoriteSongsPage allFavSongs={favSongs} removeSongFromFav={removeSongFromFav} />} />
 
         <Route path='/adminLogIn' element={<AdminLogInPage addToken={addToken}/>} />
         <Route path='/adminPage' element={<AdminPage token={token} bands={bands} handleCreateBand={handleCreateBand} deleteBand={deleteBand}/>} />

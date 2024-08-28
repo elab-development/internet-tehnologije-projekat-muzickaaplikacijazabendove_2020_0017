@@ -7,61 +7,45 @@ const LoginForm = ({admin, addToken}) => {
     // Podaci za logovanje
     const [userData, setUserData] = useState({
         email: '',
-        password: ''
+        password: '',
+        role: '',
     });
 
     let navigate = useNavigate();
 
     // Postavi podatke iz polja
     const handleChange = (e) => {
-        let newUserData = userData;
-        newUserData[e.target.name] = e.target.value;
-        setUserData(newUserData);
+      setUserData({
+        ...userData,
+        [e.target.name]: e.target.value
+      });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(userData);
         
-        if(!admin) {
-            axios.post('api/login', userData)
+        const role = admin ? 'admin' : 'user';
+
+        const updatedUserData = { ...userData, role };
+
+        console.log(updatedUserData);
+
+        axios.post('api/login', updatedUserData)
             .then((res) => {
                 console.log(res.data);
                 if(res.data.success === true){
-                //ulogovani korisnik
-                window.sessionStorage.setItem("auth_token", res.data.access_token);
-                addToken(res.data.access_token);
-                navigate('/');
+                    window.sessionStorage.setItem("auth_token", res.data.access_token);
+                    addToken(res.data.access_token);
+                    admin ? navigate('/adminPage') : navigate('/');
                 }
             })
-            .catch( (error) => {
-                // Obrada greške
+            .catch((error) => {
                 if (error.response && error.response.status === 401) {
-                alert('Pogrešan email ili lozinka. Pokušajte ponovo.');
+                    alert('Pogrešan email ili lozinka. Pokušajte ponovo.');
                 } else {
-                console.error('Došlo je do greške:', error.message);
+                    console.error('Došlo je do greške:', error.message);
                 }
             });
-        } else {
-            axios.post('api/adminLogin', userData)
-          .then((res) => {
-            console.log(res.data);
-            if(res.data.success === true){
-              //ulogovani korisnik
-              window.sessionStorage.setItem("auth_token", res.data.access_token);
-              addToken(res.data.access_token);
-              navigate('/adminPage');
-            }
-          })
-          .catch( (error) => {
-          // Obrada greške
-          if (error.response && error.response.status === 401) {
-            alert('Pogrešan email ili lozinka. Pokušajte ponovo.');
-          } else {
-            console.error('Došlo je do greške:', error.message);
-          } 
-        });
-        }
         
     }
 

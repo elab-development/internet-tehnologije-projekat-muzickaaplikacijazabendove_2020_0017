@@ -475,3 +475,43 @@ body {
 .createBtn {
   margin: 8px;
 }
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+/* Styles for pagination buttons */
+.pagination button {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Styles for pagination buttons on hover */
+.pagination button:hover {
+  background-color: #0056b3;
+  border-color: #004080;
+}
+
+/* Styles for pagination buttons when disabled */
+.pagination button:disabled {
+  background-color: #d6d6d6;
+  border-color: #d6d6d6;
+  cursor: not-allowed;
+}
+
+/* Styles for pagination page number */
+.pagination span {
+  font-size: 16px;
+  margin: 0 10px;
+}

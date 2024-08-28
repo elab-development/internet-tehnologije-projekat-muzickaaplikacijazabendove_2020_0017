@@ -43,9 +43,9 @@ const BandForAdmin = ({band, deleteBand}) => {
             band_id: band.id,
         };
         createSong(songData);
-        setSongs([...songs, songData]);
-        setSongTitle('');
-        setSongDuration('');
+        // setSongs([...songs, songData]);
+        // setSongTitle('');
+        // setSongDuration('');
     };
 
     // Kreiranje pesme
@@ -58,8 +58,17 @@ const BandForAdmin = ({band, deleteBand}) => {
             }
           });
           console.log(response.data);
+
+          const newSong = response.data.song;
+          setSongs([...songs, newSong]);
+          console.log(newSong);
+
+          setSongTitle('');
+          setSongDuration('');
+
         } catch (error) {
           console.error('There was an error creating the song!', error);
+          alert('Nemoguce kreirati pesmu.');
         }
     };
 
@@ -78,6 +87,7 @@ const BandForAdmin = ({band, deleteBand}) => {
         }
         } catch (error) {
         console.error('There was an error deleting the song!', error);
+        alert('Nemoguce obrisati pesmu.');
         }
     };
 
@@ -96,6 +106,7 @@ const BandForAdmin = ({band, deleteBand}) => {
         }
       } catch (error) {
         console.error('There was an error deleting the comment!', error);
+        alert('Nemoguce obrisati komentar.');
       }
     };
 

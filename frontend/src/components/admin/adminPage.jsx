@@ -54,10 +54,10 @@ const AdminPage = ({ token, bands, handleCreateBand, deleteBand}) => {
       <div className='navBar'>
       <h1>Admin Page</h1>
       <NavBar token={token} admin={true}/>
-      <div className='loginSignup'>
+      {/* <div className='loginSignup'>
         <button className='logIn' onClick = {handleLogout} >Log out</button>
         
-      </div>
+      </div> */}
     </div>
 
       <h1>Admin Page</h1>
