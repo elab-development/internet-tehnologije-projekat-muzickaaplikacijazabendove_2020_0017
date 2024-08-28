@@ -79,6 +79,12 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
+
+        // Provera role korisnika
+        if (auth()->user()->role !== 'admin') {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $comment = Comment::findOrFail($id);
 
         if (!$comment) {

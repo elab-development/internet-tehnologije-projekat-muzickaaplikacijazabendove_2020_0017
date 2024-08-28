@@ -22,6 +22,12 @@ class SongController extends Controller
      */
     public function store(StoreSongRequest $request)
     {
+
+        // Provera role korisnika
+        if (auth()->user()->role !== 'admin') {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $validated = $request->validated();
         $song = Song::create([
             'title' => $validated['title'],
@@ -49,11 +55,17 @@ class SongController extends Controller
      */
     public function destroy($id)
     {
+
+        // Provera role korisnika
+        if (auth()->user()->role !== 'admin') {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $song = Song::findOrFail($id);
         if (!$song) {
             return response()->json(['success' => false, 'message' => 'Song not found'], 404);
         }
-        $song->favoriteSong()->delete();
+        $song->favoriteSongs()->delete();
         $song->delete();
         return response()->json(['success' => true, 'songId' => $song->id]);
     }

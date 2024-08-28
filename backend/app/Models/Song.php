@@ -20,7 +20,7 @@ class Song extends Model
     }
 
 
-    public function favoriteSong() {
-        return $this->belongsTo(FavoriteSong::class);
+    public function favoriteSongs() {
+        return $this->hasMany(FavoriteSong::class);
     }
 }

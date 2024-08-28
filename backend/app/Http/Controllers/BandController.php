@@ -22,6 +22,12 @@ class BandController extends Controller
      */
     public function store(StoreBandRequest $request)
     {
+
+        // Provera role korisnika
+        if (auth()->user()->role !== 'admin') {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $validated = $request->validated();
         $band = Band::create([
             'name' => $validated['name'],
@@ -45,6 +51,12 @@ class BandController extends Controller
      */
     public function destroy($id)
     {
+
+        // Provera role korisnika
+        if (auth()->user()->role !== 'admin') {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $band = Band::findOrFail($id);
         foreach ($band->songs as $song) {
             $song->favoriteSong()->delete();
