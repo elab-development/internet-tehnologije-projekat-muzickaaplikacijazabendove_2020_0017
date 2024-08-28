@@ -13,7 +13,7 @@ class BandController extends Controller
      */
     public function index()
     {
-        $bands = Band::with(['songs', 'comments'])->get();
+        $bands = Band::with(['songs', 'comments'])->paginate(10);
         return response()->json($bands);
     }
 
