@@ -1,0 +1,517 @@
+/* Stil za navigacionu traku */
+
+body {
+  background-color: #a2a2a2;
+}
+
+.navBar {
+  background-color: #333;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+/* Stil za polje za pretragu */
+.searchBox {
+  display: flex;
+  align-items: center;
+}
+
+.search {
+  padding: 8px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.searchButton {
+  background-color: #137aae;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.searchButton:hover {
+  background-color: #137aae;
+}
+
+/* Stil za dugmad za prijavljivanje i odjavljivanje */
+.loginSignup {
+  display: flex;
+  align-items: center;
+}
+
+.logIn, .favoriteBandsPageBtn, .favoriteSongsPageBtn, .signUp {
+  background-color: #555;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+  text-decoration: none;
+}
+
+.logIn:hover, .favoriteBandsPageBtn:hover, .favoriteSongsPageBtn:hover, .signUp:hover {
+  background-color: #137aae;
+}
+
+.logOutBtn {
+  background-color: #f44336;
+}
+
+.logOutBtn:hover {
+  background-color: #e53935;
+}
+
+
+/* Stilizovanje bendova */
+
+.all-bands {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Flexibilni raspored */
+  gap: 20px; /* Prostor između kartica bendova */
+}
+
+.band-card {
+  text-align: center;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.band-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-img {
+  width: 100%;
+  max-height: 270px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.card-title {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #454545;
+}
+
+.band-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+
+/* Stilizovanje logIn stranice */
+
+.login {
+  text-align: center;
+}
+
+.logInPage {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.logInPage input {
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.logInPage button {
+  padding: 10px 20px;
+  background-color: #137aae;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logInPage button:hover {
+  background-color: #006ea5;
+}
+
+.link-to-admin {
+  color: black;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.link-to-admin:hover {
+  text-decoration: underline;
+}
+
+
+/* Stilizovanje signUp stranice */
+
+.signUpPage {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.signUpPage input {
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.signUpPage button {
+  padding: 10px 20px;
+  background-color: #28a7a3; /* Green color for signup button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.signUpPage button:hover {
+  background-color: #109490; /* Darker green color on hover */
+}
+
+
+/* Stilizovanje navigacionog bara za bend */
+
+.navBarBand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.bandName h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #c2c2c2;
+}
+
+.ratingsContainer {
+  display: flex;
+  align-items: center;
+}
+
+.ratingContainer {
+  display: flex;
+  align-items: center;
+}
+
+.ratingContainer svg {
+  margin: 0 2px;
+}
+
+.currentRating {
+  font-size: 14px;
+  color: #cfcfcf;
+  margin-left: 10px; /* Adjust spacing between rating and buttons */
+}
+
+.buttonsContainer {
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.addToFavoritesButton {
+  padding: 10px 20px;
+  background-color: #137aae; /* Blue color for button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.addToFavoritesButton:hover {
+  background-color: #137aae; /* Darker blue color on hover */
+}
+
+
+/* Stilizovanje stranice benda */
+
+.bandItem {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.378);
+}
+
+.bandInfo {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.commentsSection {
+  color: #c2c2c2;
+  margin-top: 20px;
+}
+.allComments {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+.comment {
+  margin-bottom: 10px;
+}
+.comment p {
+  margin: 0;
+}
+.commentInputContainer {
+  margin-top: 10px;
+}
+
+
+.songsSection {
+  margin-top: 20px;
+  color: #c2c2c2;
+}
+.allSongs {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+.song {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background-color: #00000046;
+}
+
+.songDetails {
+  flex: 1;
+}
+
+.songDetails p {
+  margin: 0;
+  font-size: 18px;
+}
+
+.details > div {
+  margin-top: 10px;
+  background-color: #60a7ee47;
+}
+
+.details .songsForAdmin,
+.details .commentsForAdmin {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.details .songsForAdmin h4,
+.details .commentsForAdmin h4 {
+    margin-top: 0;
+}
+
+.buttonsContainer {
+  margin-left: 10px;
+}
+
+.addToFavoritesButton {
+  padding: 8px 16px;
+  background-color: #007bff; /* Blue color for button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.addToFavoritesButton:hover {
+  background-color: #0056b3; /* Darker blue color on hover */
+}
+
+
+
+
+.songsSection, .commentsSection {
+  margin-top: 20px;
+}
+
+.songsSection h2, .commentsSection h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.commentInput {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.commentInput:focus {
+  outline: none;
+  border-color: #0d5275; /* Blue focus color */
+}
+
+.commentsSection button {
+  padding: 10px 20px;
+  background-color: #137aae; /* Blue color for button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.commentsSection button:hover {
+  background-color: #0d5275; /* Darker blue color on hover */
+}
+
+
+
+/* Admin stranica */
+
+/* Kreiranje benda */
+
+.form-group {
+  margin-bottom: 1rem;
+  padding: 10px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 90%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-group textarea {
+  min-height: 100px;
+}
+
+.form-group button {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-group button:hover {
+  background-color: #0056b3;
+}
+
+
+.bandForAdmin {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 5px;
+  margin: 10px 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.359);
+}
+
+.topSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bandDetails {
+  flex: 1;
+}
+
+.bandDetails p {
+  margin: 4px 0;
+  color: #000000;
+}
+
+.bandDetails h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.bandsForAdmin {
+  display: flex;
+  flex-direction: column;
+}
+
+.createBtn {
+  margin: 8px;
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+/* Styles for pagination buttons */
+.pagination button {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Styles for pagination buttons on hover */
+.pagination button:hover {
+  background-color: #0056b3;
+  border-color: #004080;
+}
+
+/* Styles for pagination buttons when disabled */
+.pagination button:disabled {
+  background-color: #d6d6d6;
+  border-color: #d6d6d6;
+  cursor: not-allowed;
+}
+
+/* Styles for pagination page number */
+.pagination span {
+  font-size: 16px;
+  margin: 0 10px;
+}
